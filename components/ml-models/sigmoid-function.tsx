@@ -13,26 +13,30 @@ export function SigmoidFunction({ position, scale = 1 }: SigmoidFunctionProps) {
   const groupRef = useRef<THREE.Group>(null)
   const curveRef = useRef<THREE.Line>(null)
 
-  // Create sigmoid curve
-  useEffect(() => {
-    if (curveRef.current) {
-      const points: THREE.Vector3[] = []
-
-      // Generate sigmoid curve points
-      for (let x = -5; x <= 5; x += 0.1) {
-        const sigmoid = 1 / (1 + Math.exp(-x))
-        points.push(new THREE.Vector3(x, sigmoid * 2 - 1, 0))
-      }
-
-      const geometry = new THREE.BufferGeometry().setFromPoints(points)
-
-      if (curveRef.current.geometry) {
-        curveRef.current.geometry.dispose()
-      }
-
-      curveRef.current.geometry = geometry
+// Create sigmoid curve with adjustable steepness
+useEffect(() => {
+  if (curveRef.current) {
+    const points: THREE.Vector3[] = []
+    
+    // Steepness parameter - higher values make the curve steeper
+    const steepness = 4.0; // Increase this value to make it curvier
+    
+    // Generate sigmoid curve points
+    for (let x = -5; x <= 5; x += 0.1) {
+      // Modified sigmoid with steepness parameter
+      const sigmoid = 1 / (1 + Math.exp(-steepness * x))
+      points.push(new THREE.Vector3(x, sigmoid * 2 - 1, 0))
     }
-  }, [])
+
+    const geometry = new THREE.BufferGeometry().setFromPoints(points)
+
+    if (curveRef.current.geometry) {
+      curveRef.current.geometry.dispose()
+    }
+
+    curveRef.current.geometry = geometry
+  }
+}, [])
 
   // Animation
   useFrame((state) => {

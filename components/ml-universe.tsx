@@ -93,15 +93,15 @@ export function MLUniverse({ activeSection, onSectionChange, isLoaded }: MLUnive
     <group ref={groupRef} onClick={handleCanvasClick}>
       {/* ML Concept Models */}
       <NeuralNetwork position={[0, 0, 0]} scale={isMobile ? 0.8 : 1} />
-      <DecisionTree position={[5, 3, -2]} scale={isMobile ? 0.6 : 0.8} />
+      <DecisionTree position={[6, 3, -2]} scale={isMobile ? 0.6 : 0.8} />
       <LinearRegression position={[-5, 2, -3]} scale={isMobile ? 0.6 : 0.8} />
-      <SigmoidFunction position={[4, -3, -2]} scale={isMobile ? 0.6 : 0.8} />
-      <Clustering position={[-4, -2, -1]} scale={isMobile ? 0.6 : 0.8} />
-      <Transformer position={[0, -4, -3]} scale={isMobile ? 0.6 : 0.8} />
+      <SigmoidFunction position={[5, -3, -2]} scale={isMobile ? 0.6 : 0.8} />
+      <Clustering position={[-5, -3, -2]} scale={isMobile ? 0.6 : 0.8} />
+      <Transformer position={[0, -6, -3]} scale={isMobile ? 0.6 : 0.8} />
 
       {/* Navigation Nodes */}
       <NavigationNode
-        position={[-5, 2, -3]}
+        position={[-5, 2.5, -3]}
         label="About Me"
         section="about"
         icon="linear-regression"
@@ -123,7 +123,7 @@ export function MLUniverse({ activeSection, onSectionChange, isLoaded }: MLUnive
       />
 
       <NavigationNode
-        position={[5, 3, -2]}
+        position={[6, 3, -2]}
         label="Skills"
         section="skills"
         icon="decision-tree"
@@ -134,7 +134,7 @@ export function MLUniverse({ activeSection, onSectionChange, isLoaded }: MLUnive
       />
 
       <NavigationNode
-        position={[4, -3, -2]}
+        position={[5, -3, -2]}
         label="Writings"
         section="writings"
         icon="sigmoid"
@@ -145,7 +145,7 @@ export function MLUniverse({ activeSection, onSectionChange, isLoaded }: MLUnive
       />
 
       <NavigationNode
-        position={[0, -4, -3]}
+        position={[0, -6, -3]}
         label="Contact"
         section="contact"
         icon="transformer"

@@ -11,11 +11,18 @@ import { WritingsSection } from "@/components/sections/writings-section"
 import { ContactSection } from "@/components/sections/contact-section"
 import { LoadingScreen } from "@/components/ui/loading-screen"
 import { useMobile } from "@/hooks/use-mobile"
+import { useAudio } from "@/hooks/use-audio" // Import useAudio
 
 export default function MLPortfolio() {
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const isMobile = useMobile()
+
+  // Initialize audio hook for ambient sound
+  const { play: playAmbientSound, stop: stopAmbientSound, isReady } = useAudio("/ambient.mp3", {
+    loop: true,
+    volume: 0.6, // Blast it for testing
+  })
 
   // Handle section changes
   const handleSectionChange = (section: string | null) => {
@@ -29,6 +36,33 @@ export default function MLPortfolio() {
     }, 3000)
     return () => clearTimeout(timer)
   }, [])
+
+  // Attempt to play ambient sound when loaded and when the audio is ready
+  useEffect(() => {
+    if (isLoaded && isReady) {
+      console.log("Attempting to play ambient sound (isLoaded && isReady)")
+      playAmbientSound()
+    } else {
+      console.log("Ambient sound not playing:", { isLoaded, isReady })
+    }
+
+    // Cleanup: stop the sound if the component unmounts
+    return () => {
+      console.log("Stopping ambient sound on unmount")
+      stopAmbientSound()
+    }
+  }, [isLoaded, isReady, playAmbientSound, stopAmbientSound])
+
+  // Optionally, try to play again after a short delay in case of loading issues
+  useEffect(() => {
+    if (isLoaded && !isReady) {
+      const retryTimer = setTimeout(() => {
+        console.log("Retrying to play ambient sound after a delay")
+        playAmbientSound()
+      }, 500)
+      return () => clearTimeout(retryTimer)
+    }
+  }, [isLoaded, isReady, playAmbientSound])
 
   return (
     <div className="relative w-full h-screen bg-[#050510] overflow-hidden">
