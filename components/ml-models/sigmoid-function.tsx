@@ -25,7 +25,7 @@ export function SigmoidFunction({ position, scale = 1 }: SigmoidFunctionProps) {
 
   const xAxisGeometry = useMemo(() => {
     const geometry = new THREE.BufferGeometry()
-    const points = [new THREE.Vector3(-5, 0, 0), new THREE.Vector3(5, 0, 0)]
+    const points = [new THREE.Vector3(-5, -1, 0), new THREE.Vector3(5, -1, 0)]
     geometry.setFromPoints(points)
     return geometry
   }, [])
@@ -97,6 +97,16 @@ export function SigmoidFunction({ position, scale = 1 }: SigmoidFunctionProps) {
       {/* Sigmoid curve */}
       <line ref={curveRef} geometry={initialCurveGeometry}>
         <lineBasicMaterial color="#9e4aff" transparent opacity={0.8} linewidth={2} />
+      </line>
+      
+      {/* X-axis line */}
+      <line ref={xAxisRef} geometry={xAxisGeometry}>
+        <lineBasicMaterial color="#ffffff" transparent opacity={0.3} />
+      </line>
+      
+      {/* Y-axis line */}
+      <line ref={yAxisRef} geometry={yAxisGeometry}>
+        <lineBasicMaterial color="#ffffff" transparent opacity={0.3} />
       </line>
     </group>
   )
