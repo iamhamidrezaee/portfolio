@@ -25,16 +25,6 @@ export function ProjectsSection({ onClose }: ProjectsSectionProps) {
 
   const projects: Project[] = [
     {
-      id: "slicesense",
-      title: "SliceSense",
-      description:
-        "Deep learning-powered slice thickness prediction for medical imaging",
-      icon: "gradient-descent",
-      color: "#ff4a9e",
-      github: "https://github.com/iamhamidrezaee/SliceSense",
-      technologies: ["PyTorch", "Scikit-learn"],
-    },
-    {
       id: "research",
       title: "ReSearch",
       description:
