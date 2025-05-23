@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react"
 import { useFrame } from "@react-three/fiber"
-import { Html } from "@react-three/drei"
+import { Html, Text } from "@react-three/drei"
 import * as THREE from "three"
 
 interface NavigationNodeProps {

@@ -45,11 +45,11 @@ export function AboutSection({ onClose }: AboutSectionProps) {
 
               <div className="space-y-4 text-[#b4b4d0]">
                 <p>
-                  Passionate machine learning engineer skilled in building ML solutions leveraging PyTorch, TensorFlow,
+                  Driven machine learning engineer skilled in building ML solutions leveraging PyTorch, TensorFlow,
                   and scikit-learn, with robust backend experience utilizing Flask, Docker, AWS, and Git.
                 </p>
                 <p>
-                  Specializing in large language models (LLMs) with AWS Bedrock, SageMaker, Hugging Face, and
+                  Specializing in large language models (LLMs) with Hugging Face and
                   Transformer architectures.
                 </p>
                 <p>

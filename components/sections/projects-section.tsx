@@ -1,5 +1,4 @@
 "use client"
-
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { X, ExternalLink, Github } from "lucide-react"
@@ -29,45 +28,62 @@ export function ProjectsSection({ onClose }: ProjectsSectionProps) {
       id: "slicesense",
       title: "SliceSense",
       description:
-        "Medical imaging analysis platform using regression techniques to identify and classify anomalies in medical scans.",
-      icon: "linear-regression",
+        "Deep learning-powered slice thickness prediction for medical imaging",
+      icon: "gradient-descent",
       color: "#ff4a9e",
       github: "https://github.com/iamhamidrezaee/SliceSense",
-      technologies: ["PyTorch", "TensorFlow", "Flask", "Docker"],
+      technologies: ["PyTorch", "Scikit-learn"],
     },
     {
       id: "research",
       title: "ReSearch",
       description:
-        "Research paper clustering and recommendation system that uses NLP and clustering algorithms to group similar papers.",
+        "A platform for retrieving high-quality–conference-approved and/or highly-influential–research papers in an instant.",
       icon: "clustering",
       color: "#4ecdc4",
       github: "https://github.com/iamhamidrezaee/ReSearch",
-      technologies: ["scikit-learn", "NLTK", "Flask", "AWS"],
+      technologies: ["Information Retrieval", "Flask", "Single Value Decomposition (SVD)", "TF-IDF", "Storage Optimization"],
     },
     {
       id: "alignment-arena",
       title: "Alignment-Arena",
       description:
-        "LLM alignment evaluation framework using transformer architectures to measure and improve model alignment with human values.",
+        "A novel framework for quantifying and comparing alignment in masked language models (MLMs) across dimensions of sex, gender, race, culture, religion, and ethnicity.",
       icon: "transformer",
       color: "#ff9e4a",
       github: "https://github.com/iamhamidrezaee/Alignment-Arena",
-      technologies: ["Hugging Face", "PyTorch", "AWS Bedrock", "SageMaker"],
+      technologies: ["Hugging Face", "PyTorch", "Transformers"],
     },
     {
       id: "tune",
       title: "TUNE",
       description:
-        "Fine-tuning optimization platform for large language models using gradient descent and other optimization techniques.",
+        "TUNE is a streamlined platform that simplifies the LLM fine-tuning process into just three clicks.",
       icon: "gradient-descent",
       color: "#9e4aff",
       github: "https://github.com/iamhamidrezaee/TUNE",
-      technologies: ["PyTorch", "TensorFlow", "Docker", "AWS"],
+      technologies: ["Hugging Face", "PyTorch"],
     },
   ]
 
   const getProjectById = (id: string) => projects.find((p) => p.id === id)
+
+  // Function to extract GitHub repo info and construct OpenGraph image URL
+  const getGitHubImageUrl = (githubUrl: string) => {
+    try {
+      const url = new URL(githubUrl)
+      const pathParts = url.pathname.split('/').filter(Boolean)
+      if (pathParts.length >= 2) {
+        const username = pathParts[0]
+        const repoName = pathParts[1]
+        // GitHub's OpenGraph API for repository social preview images
+        return `https://opengraph.githubassets.com/1/${username}/${repoName}`
+      }
+    } catch (error) {
+      console.error('Error parsing GitHub URL:', error)
+    }
+    return null
+  }
 
   const renderProjectIcon = (icon: string) => {
     switch (icon) {
@@ -145,15 +161,17 @@ export function ProjectsSection({ onClose }: ProjectsSectionProps) {
         >
           <X size={20} />
         </button>
-
         <div className="space-y-6">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold text-white">ML Project Universe</h2>
             <div className="h-1 w-20 bg-gradient-to-r from-[#4a9eff] to-[#9e4aff]"></div>
           </div>
-
           {selectedProject ? (
-            <ProjectDetail project={getProjectById(selectedProject)!} onBack={() => setSelectedProject(null)} />
+            <ProjectDetail 
+              project={getProjectById(selectedProject)!} 
+              onBack={() => setSelectedProject(null)}
+              getGitHubImageUrl={getGitHubImageUrl}
+            />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {projects.map((project) => (
@@ -195,9 +213,24 @@ export function ProjectsSection({ onClose }: ProjectsSectionProps) {
 interface ProjectDetailProps {
   project: Project
   onBack: () => void
+  getGitHubImageUrl: (url: string) => string | null
 }
 
-function ProjectDetail({ project, onBack }: ProjectDetailProps) {
+function ProjectDetail({ project, onBack, getGitHubImageUrl }: ProjectDetailProps) {
+  const [imageError, setImageError] = useState(false)
+  const githubImageUrl = getGitHubImageUrl(project.github)
+
+  // Fallback gradient background based on project color
+  const fallbackStyle = {
+    background: `linear-gradient(135deg, ${project.color}20, ${project.color}10)`,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '24px',
+    fontWeight: 'bold',
+    color: project.color,
+  }
+
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
       <button
@@ -216,7 +249,6 @@ function ProjectDetail({ project, onBack }: ProjectDetailProps) {
         </svg>
         Back to Projects
       </button>
-
       <div className="space-y-6">
         <div className="flex items-center gap-4">
           <div
@@ -229,21 +261,40 @@ function ProjectDetail({ project, onBack }: ProjectDetailProps) {
           </div>
           <h3 className="text-2xl font-bold text-white">{project.title}</h3>
         </div>
-
-        <div className="aspect-video relative rounded-lg overflow-hidden bg-[#1a1a30]">
-          <Image
-            src="/placeholder.svg?height=400&width=800"
-            alt={project.title}
-            width={800}
-            height={400}
-            className="object-cover"
-          />
+        
+        <div className="aspect-video relative rounded-lg overflow-hidden bg-[#1a1a30] border border-[#3a3a6a]">
+          {githubImageUrl && !imageError ? (
+            <Image
+              src={githubImageUrl}
+              alt={`${project.title} repository preview`}
+              width={800}
+              height={400}
+              className="object-cover w-full h-full"
+              onError={() => setImageError(true)}
+              priority
+            />
+          ) : (
+            <div className="w-full h-full" style={fallbackStyle}>
+              <div className="text-center">
+                <div className="text-4xl mb-2">📊</div>
+                <div>{project.title}</div>
+                <div className="text-sm opacity-70 mt-1">GitHub Repository</div>
+              </div>
+            </div>
+          )}
+          
+          {/* Overlay with project info */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-4 left-4 right-4">
+              <h4 className="text-white font-semibold text-lg">{project.title}</h4>
+              <p className="text-white/80 text-sm mt-1 line-clamp-2">{project.description}</p>
+            </div>
+          </div>
         </div>
-
+        
         <div className="space-y-4">
           <h4 className="text-xl font-semibold text-white">Overview</h4>
           <p className="text-[#b4b4d0]">{project.description}</p>
-
           <div className="flex flex-wrap gap-2 mt-4">
             {project.technologies.map((tech) => (
               <span key={tech} className="px-3 py-1 text-sm rounded-full bg-[#2a2a4a] text-[#b4b4d0]">
@@ -252,7 +303,7 @@ function ProjectDetail({ project, onBack }: ProjectDetailProps) {
             ))}
           </div>
         </div>
-
+        
         <div className="flex flex-wrap gap-4">
           <Link
             href={project.github}
@@ -263,7 +314,6 @@ function ProjectDetail({ project, onBack }: ProjectDetailProps) {
             <Github size={18} />
             View on GitHub
           </Link>
-
           {project.demo && (
             <Link
               href={project.demo}
