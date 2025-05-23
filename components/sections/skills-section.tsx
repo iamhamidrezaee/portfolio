@@ -31,18 +31,13 @@ export function SkillsSection({ onClose }: SkillsSectionProps) {
         },
         {
           name: "TensorFlow",
-          level: 85,
+          level: 75,
           description: "End-to-end ML platform for model development and deployment",
         },
         {
           name: "scikit-learn",
           level: 95,
           description: "Machine learning library for classical ML algorithms",
-        },
-        {
-          name: "Computer Vision",
-          level: 80,
-          description: "Image processing and analysis techniques",
         },
       ],
     },
@@ -51,19 +46,14 @@ export function SkillsSection({ onClose }: SkillsSectionProps) {
       color: "#9e4aff",
       skills: [
         {
-          name: "AWS Bedrock",
-          level: 85,
-          description: "Fully managed service for foundation models",
-        },
-        {
-          name: "SageMaker",
-          level: 80,
-          description: "Build, train, and deploy ML models at scale",
-        },
-        {
           name: "Hugging Face",
           level: 90,
           description: "State-of-the-art NLP models and libraries",
+        },
+        {
+          name: "Deployments",
+          level: 80,
+          description: "Experience with deploying ML models in production environments",
         },
         {
           name: "Transformers",
@@ -80,11 +70,6 @@ export function SkillsSection({ onClose }: SkillsSectionProps) {
           name: "Flask",
           level: 90,
           description: "Python web framework for API development",
-        },
-        {
-          name: "Docker",
-          level: 85,
-          description: "Containerization for consistent deployment",
         },
         {
           name: "Git",
@@ -108,19 +93,14 @@ export function SkillsSection({ onClose }: SkillsSectionProps) {
           description: "Primary programming language for ML and backend",
         },
         {
-          name: "SQL",
-          level: 85,
-          description: "Database querying and management",
-        },
-        {
           name: "JavaScript",
           level: 75,
           description: "Web development and interactive visualizations",
         },
         {
-          name: "C++",
+          name: "Java",
           level: 70,
-          description: "Performance-critical applications",
+          description: "Solid foundation in Java for backend development",
         },
       ],
     },

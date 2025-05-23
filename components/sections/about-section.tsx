@@ -70,12 +70,12 @@ export function AboutSection({ onClose }: AboutSectionProps) {
                         <span className="text-xs font-semibold inline-block text-[#4a9eff]">ML Engineering</span>
                       </div>
                       <div>
-                        <span className="text-xs font-semibold inline-block text-[#4a9eff]">90%</span>
+                        <span className="text-xs font-semibold inline-block text-[#4a9eff]">95%</span>
                       </div>
                     </div>
                     <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-[#2a2a4a]">
                       <div
-                        style={{ width: "90%" }}
+                        style={{ width: "95%" }}
                         className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#4a9eff]"
                       ></div>
                     </div>
@@ -84,15 +84,15 @@ export function AboutSection({ onClose }: AboutSectionProps) {
                   <div className="relative pt-1">
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="text-xs font-semibold inline-block text-[#ff4a9e]">LLM Development</span>
+                        <span className="text-xs font-semibold inline-block text-[#ff4a9e]">LLM Deployment</span>
                       </div>
                       <div>
-                        <span className="text-xs font-semibold inline-block text-[#ff4a9e]">85%</span>
+                        <span className="text-xs font-semibold inline-block text-[#ff4a9e]">87%</span>
                       </div>
                     </div>
                     <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-[#2a2a4a]">
                       <div
-                        style={{ width: "85%" }}
+                        style={{ width: "87%" }}
                         className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#ff4a9e]"
                       ></div>
                     </div>
@@ -104,12 +104,12 @@ export function AboutSection({ onClose }: AboutSectionProps) {
                         <span className="text-xs font-semibold inline-block text-[#4aff9e]">Backend Development</span>
                       </div>
                       <div>
-                        <span className="text-xs font-semibold inline-block text-[#4aff9e]">80%</span>
+                        <span className="text-xs font-semibold inline-block text-[#4aff9e]">90%</span>
                       </div>
                     </div>
                     <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-[#2a2a4a]">
                       <div
-                        style={{ width: "80%" }}
+                        style={{ width: "90%" }}
                         className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#4aff9e]"
                       ></div>
                     </div>
@@ -121,12 +121,12 @@ export function AboutSection({ onClose }: AboutSectionProps) {
                         <span className="text-xs font-semibold inline-block text-[#9e4aff]">Cloud Infrastructure</span>
                       </div>
                       <div>
-                        <span className="text-xs font-semibold inline-block text-[#9e4aff]">75%</span>
+                        <span className="text-xs font-semibold inline-block text-[#9e4aff]">78%</span>
                       </div>
                     </div>
                     <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-[#2a2a4a]">
                       <div
-                        style={{ width: "75%" }}
+                        style={{ width: "78%" }}
                         className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#9e4aff]"
                       ></div>
                     </div>

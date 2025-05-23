@@ -33,7 +33,7 @@ export function MLUniverse({ activeSection, onSectionChange, isLoaded }: MLUnive
 
     if (groupRef.current && isLoaded) {
       // Gentle rotation of the entire universe
-      groupRef.current.rotation.y -= 0.001
+      groupRef.current.rotation.y += 0.0007
 
       // Subtle breathing animation
       const breathingScale = 1 + Math.sin(Date.now() * 0.001) * 0.02
