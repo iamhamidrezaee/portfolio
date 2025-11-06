@@ -39,6 +39,11 @@ export function SkillsSection({ onClose }: SkillsSectionProps) {
           level: 95,
           description: "Machine learning library for classical ML algorithms",
         },
+        {
+          name: "Model Optimization",
+          level: 98,
+          description: "Performance optimization, latency reduction, and efficient model deployment",
+        },
       ],
     },
     {
@@ -49,6 +54,11 @@ export function SkillsSection({ onClose }: SkillsSectionProps) {
           name: "Hugging Face",
           level: 90,
           description: "State-of-the-art NLP models and libraries",
+        },
+        {
+          name: "Ollama",
+          level: 87,
+          description: "Local LLM deployment and optimization for edge computing",
         },
         {
           name: "Deployments",
@@ -91,6 +101,16 @@ export function SkillsSection({ onClose }: SkillsSectionProps) {
           name: "Python",
           level: 95,
           description: "Primary programming language for ML and backend",
+        },
+        {
+          name: "TypeScript",
+          level: 98,
+          description: "Type-safe development with React and modern frontend frameworks",
+        },
+        {
+          name: "React/TSX",
+          level: 95,
+          description: "Building interactive UIs with React and TypeScript",
         },
         {
           name: "JavaScript",

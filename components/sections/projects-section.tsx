@@ -54,6 +54,16 @@ export function ProjectsSection({ onClose }: ProjectsSectionProps) {
       github: "https://github.com/iamhamidrezaee/TUNE",
       technologies: ["Hugging Face", "PyTorch"],
     },
+    {
+      id: "slicesense",
+      title: "SliceSense",
+      description:
+        "A deep learning framework for predicting z-axis slice thickness of 3D medical images (MRI/CT) from 2D slices using CNN + BiLSTM + Self-Attention architecture.",
+      icon: "medical-imaging",
+      color: "#4a9eff",
+      github: "https://github.com/iamhamidrezaee/SliceSense",
+      technologies: ["PyTorch", "ResNet-18", "BiLSTM", "Self-Attention", "Medical Imaging", "NIfTI"],
+    },
   ]
 
   const getProjectById = (id: string) => projects.find((p) => p.id === id)
@@ -123,6 +133,19 @@ export function ProjectsSection({ onClose }: ProjectsSectionProps) {
               <path d="M4 16V4H16" stroke="#9e4aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               <circle cx="12" cy="12" r="2" stroke="#9e4aff" strokeWidth="2" />
               <path d="M12 12L16 8" stroke="#9e4aff" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </div>
+        )
+      case "medical-imaging":
+        return (
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-[#4a9eff]/20">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="16" height="16" rx="2" stroke="#4a9eff" strokeWidth="2" />
+              <path d="M4 9H20" stroke="#4a9eff" strokeWidth="2" strokeLinecap="round" />
+              <path d="M4 14H20" stroke="#4a9eff" strokeWidth="2" strokeLinecap="round" />
+              <path d="M9 4V20" stroke="#4a9eff" strokeWidth="2" strokeLinecap="round" />
+              <path d="M14 4V20" stroke="#4a9eff" strokeWidth="2" strokeLinecap="round" />
+              <circle cx="12" cy="12" r="1.5" fill="#4a9eff" />
             </svg>
           </div>
         )

@@ -46,14 +46,14 @@ export function AboutSection({ onClose }: AboutSectionProps) {
               <div className="space-y-4 text-[#b4b4d0]">
                 <p>
                   Driven machine learning engineer skilled in building ML solutions leveraging PyTorch, TensorFlow,
-                  and scikit-learn, with robust backend experience utilizing Flask, Docker, AWS, and Git.
+                  and scikit-learn, with robust frontend experience utilizing React, Next.js, and Tailwind CSS, and backend experience utilizing Flask, Docker, AWS, and Git.
                 </p>
                 <p>
-                  Specializing in large language models (LLMs) with Hugging Face and
+                  Specializing in large language models (LLMs) and Agentic Applications (with MCP) with Ollama, OpenAI, Hugging Face and
                   Transformer architectures.
                 </p>
                 <p>
-                  Also an avid creative writer, filmmaker, and gamer (especially NFS Unbound). Enthusiastically open to
+                  Also an avid creative writer, filmmaker, and gamer (especially Forza Horizon 5). Enthusiastically open to
                   discussions around ML research, LLM innovations, or creative ventures.
                 </p>
               </div>

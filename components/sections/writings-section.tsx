@@ -187,25 +187,25 @@ At LessonLoop, Cornell Tech, and CUSD, I’ve taken this approach. And it works�
     },
     {
       id: "why-4",
-      title: "The ‘Why’ Chronicles, Part 4: What’s Next?",
+      title: "The 'Why' Chronicles, Part 4: What's Next?",
       date: "March 12, 2025",
       readTime: "6 min read",
       excerpt:
         "Why on-device LLMs like OLMoE might mark the beginning of a privacy-focused AI future.",
-      content: `# The ‘Why’ Chronicles, Part 4: What’s Next?
+      content: `# The 'Why' Chronicles, Part 4: What's Next?
 
-Call me a nerd, but the launch of Ai2’s iOS app **OLMoE** has me thrilled. It’s **open-source** and **runs on-device**—that means full **privacy**.
+Call me a nerd, but the launch of Ai2's iOS app **OLMoE** has me thrilled. It's **open-source** and **runs on-device**—that means full **privacy**.
 
-Every time I use ChatGPT and input something personal, I feel like, *“They know that now.”* That mental load disappears with on-device LLMs.
+Every time I use ChatGPT and input something personal, I feel like, *"They know that now."* That mental load disappears with on-device LLMs.
 
-But here’s the problem: **perception**.
+But here's the problem: **perception**.
 
 When I told a friend they could input medical info safely, they said:  
-> *"Nah, I wouldn’t go that far."*
+> *"Nah, I wouldn't go that far."*
 
-People don’t yet **understand the privacy advantage**.
+People don't yet **understand the privacy advantage**.
 
-Technically, running a performant LLM **on-device** is insanely hard. Hats off to Ai2. Ironically, I haven’t tried OLMoE—my iPhone 13 mini doesn’t have the 8GB RAM it needs. So yes, I’m eyeing an upgrade just to try it.
+Technically, running a performant LLM **on-device** is insanely hard. Hats off to Ai2. Ironically, I haven't tried OLMoE—my iPhone 13 mini doesn't have the 8GB RAM it needs. So yes, I'm eyeing an upgrade just to try it.
 
 This is the start of something bigger:
 
@@ -215,13 +215,72 @@ This is the start of something bigger:
 
 Imagine: **everything** local, private, offline.
 
-I’m not anti-cloud—cloud LLMs are great for heavy-duty reasoning. But for sensitive stuff? I want it local.
+I'm not anti-cloud—cloud LLMs are great for heavy-duty reasoning. But for sensitive stuff? I want it local.
 
-> If I worked at Ai2, I’d already be proposing OLMoE+.
+> If I worked at Ai2, I'd already be proposing OLMoE+.
 
-And that’s what’s next.
+And that's what's next.
 `,
       category: "On-Device AI",
+    },
+    {
+      id: "why-5",
+      title: "The 'Why' Chronicles, Part 5: Adaptive Optimization",
+      date: "November 2, 2024",
+      readTime: "7 min read",
+      excerpt:
+        "Building a voice agent architecture that stays under 800ms end-to-end latency, and reimagining how systems could automatically optimize as models scale.",
+      content: `# The 'Why' Chronicles, Part 5: Adaptive Optimization
+
+During a project, I've been building and continuously improving a voice agent architecture consisting of STT, LLM, and TTS components. I successfully kept the end-to-end latency under 800ms for the entire pipeline, but the journey there led to some interesting realizations.
+
+## The Small Model Dilemma
+
+When building low-latency applications like voice agents that need to respond in under a second, you're typically working with small LLMs in the 1B-4B parameter range. This creates a constant tension: **fast but small models that produce mediocre results, or larger models that produce great results but sacrifice latency.**
+
+Here's the challenge: even on high-end GPUs, jumping from a 1B to a 3B parameter model can add 100-200ms of latency. For a voice application, that's significant.
+
+## The Optimization Journey
+
+I experimented with memory optimization techniques, like:
+
+* Preloading model weights on GPU
+* Eliminating wrapper overhead in forward passes
+* Building tensors directly on GPU
+
+The result was consistent **700-800ms latency** even as context grew, which was great. But it got me thinking about a bigger problem.
+
+## What If Systems Could Self-Optimize?
+
+What if we built a pipeline that **automatically orchestrates optimizations as components scale**?
+
+Instead of accepting the naive scaling penalty (3B model = 3x latency), what if the system intelligently adapted? When you swap in a larger LLM, the architecture could automatically:
+
+* **Apply speculative decoding** using the smaller model as a draft generator, getting larger model quality at nearly small model speed
+
+* **Dynamically quantize** to INT8/INT4 based on latency budget and quality requirements or thresholds
+
+* **Adjust KV cache sizes and attention mechanisms** (Flash Attention, GQA) based on model characteristics
+
+* **Use early exit strategies** for simple responses, reserving full compute for complex ones
+
+* **Leverage prefix caching** for repeated patterns in conversational flows
+
+## The Vision
+
+The goal isn't to defy compute physics; a 3B model has 3x the parameters and that's unavoidable. But intelligent composition of these techniques could mean upgrading from 1B→3B results in only a **10-20% latency penalty instead of 200-300%**, and that is a huge upgrade by itself.
+
+Additionally, we're not incorporating it by default to avoid overengineering and, as mentioned in my earlier posts, to avoid pulling out a bazooka where we need a pistol.
+
+Of course, there's a ceiling. At some point, no amount of optimization compensates for fundamental compute requirements. But the whole point of my focus on this is exploring **how far I can push this adaptive approach before hitting those bounds**.
+
+## Still Exploring
+
+This is still a research direction I'm investigating, of course! A research on the **entire stack**, not just individual components, but the **intelligent orchestration between them** based on latency requirements and model characteristics.
+
+> The ultimate vision is a pipeline where you can upgrade to the latest, best-performing models in each category, and the system automatically configures itself to maintain the lowest latency achievable.
+`,
+      category: "Voice AI & Optimization",
     },
   ]
 
