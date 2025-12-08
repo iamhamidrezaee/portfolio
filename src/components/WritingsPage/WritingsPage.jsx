@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import FlowingMenu from '../FlowingMenu/FlowingMenu';
+import Aurora from '../Aurora/Aurora';
 import { writings } from '../../../data/writings.ts';
 import { GoArrowLeft } from 'react-icons/go';
 import './WritingsPage.css';
@@ -38,6 +39,14 @@ const WritingsPage = ({ onBack }) => {
   if (selectedWriting) {
     return (
       <div className="writing-detail">
+        <div className="aurora-background">
+          <Aurora
+            colorStops={["#5b728f", "#7f6490", "#895252"]}
+            blend={1}
+            amplitude={1.0}
+            speed={0.8}
+          />
+        </div>
         <div className="writing-nav-container">
           <button className="back-button" onClick={handleBackToList}>
             <GoArrowLeft className="back-arrow" />
@@ -76,6 +85,14 @@ const WritingsPage = ({ onBack }) => {
 
   return (
     <div className="writings-page">
+      <div className="aurora-background">
+        <Aurora
+          colorStops={["#9ac3f9", "#deadff", "#fb9393"]}
+          blend={1}
+          amplitude={1.0}
+          speed={0.8}
+        />
+      </div>
       <header className="writings-header">
         <button className="back-button" onClick={onBack}>
           <GoArrowLeft className="back-arrow" />

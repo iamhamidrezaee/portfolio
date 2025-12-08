@@ -12,6 +12,12 @@
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #000;
+
+  /* iOS safe area support */
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
 }
 
 * {
@@ -27,6 +33,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* Custom scrollbar */
@@ -58,4 +68,40 @@ body {
 .experience-page,
 .projects-page {
   padding-bottom: 6rem;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px; /* Prevent zoom on focus in iOS */
+    padding-bottom: var(--sab, 0);
+  }
+  
+  .writings-page,
+  .experience-page,
+  .projects-page {
+    padding-bottom: calc(8rem + var(--sab, 0));
+  }
+
+  /* Optimize scrolling on mobile */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+  .writings-page,
+  .experience-page,
+  .projects-page {
+    padding-bottom: calc(9rem + var(--sab, 0));
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 896px) and (orientation: landscape) {
+  .writings-page,
+  .experience-page,
+  .projects-page {
+    padding-bottom: calc(7rem + var(--sab, 0));
+  }
 }

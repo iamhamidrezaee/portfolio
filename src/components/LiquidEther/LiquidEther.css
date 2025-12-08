@@ -6,3 +6,20 @@
   touch-action: none;
 }
 
+@media (max-width: 768px) {
+  .liquid-ether-container {
+    will-change: transform;
+  }
+  
+  .liquid-ether-container canvas {
+    image-rendering: optimizeSpeed;
+  }
+}
+
+@media (max-width: 480px) {
+  .liquid-ether-container canvas {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+

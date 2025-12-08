@@ -1,11 +1,28 @@
 import React from 'react';
 import { projects } from '../../../data/projects.ts';
 import { GoArrowUpRight, GoArrowLeft } from 'react-icons/go';
+import LightRays from '../LightRays/LightRays';
 import './ProjectsPage.css';
 
 const ProjectsPage = ({ onBack }) => {
   return (
     <div className="projects-page">
+      <div className="projects-background">
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#ffffff"
+          raysSpeed={0.5}
+          lightSpread={0.5}
+          rayLength={3}
+          fadeDistance={1}
+          saturation={1}
+          mouseInfluence={0.1}
+          noiseAmount={0}
+          distortion={0}
+          pulsating={true}
+          followMouse={true}
+        />
+      </div>
       <header className="projects-header">
         <button className="back-button" onClick={onBack}>
           <GoArrowLeft className="back-arrow" />

@@ -24,52 +24,52 @@ const LandingPage = ({ onNavigate }) => {
       </div>
 
       {/* Content Overlay */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <h1 className="text-6xl md:text-8xl font-thin tracking-tighter text-white mb-2 mix-blend-difference">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto w-full">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-thin tracking-tighter text-white mb-2 sm:mb-3 mix-blend-difference leading-tight">
           Hamid Rezaee
         </h1>
         
-        <div className="h-px w-32 bg-white mx-auto my-6 opacity-50"></div>
+        <div className="h-px w-24 sm:w-32 bg-white mx-auto my-4 sm:my-5 md:my-6 opacity-50"></div>
         
-        <h2 className="text-xl md:text-2xl font-light tracking-wide text-gray-300 mb-8 mix-blend-difference">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-light tracking-wide text-gray-300 mb-6 sm:mb-8 mix-blend-difference px-2">
           Machine Learning Engineer
         </h2>
         
-        <div className="flex flex-col md:flex-row gap-6 justify-center items-center text-sm md:text-base font-extralight text-gray-400 tracking-wider mb-12">
-          <span className="hover:text-white transition-colors duration-300 cursor-pointer" onClick={() => onNavigate && onNavigate('experience')}>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center text-sm sm:text-base font-extralight text-gray-400 tracking-wider mb-8 sm:mb-10 md:mb-12 px-4">
+          <span className="hover:text-white active:text-white transition-colors duration-300 cursor-pointer touch-manipulation" onClick={() => onNavigate && onNavigate('experience')}>
             Low Latency Systems
           </span>
-          <span className="hidden md:inline text-gray-700">•</span>
-          <span className="hover:text-white transition-colors duration-300 cursor-pointer" onClick={() => onNavigate && onNavigate('projects')}>
+          <span className="hidden sm:inline text-gray-700">•</span>
+          <span className="hover:text-white active:text-white transition-colors duration-300 cursor-pointer touch-manipulation" onClick={() => onNavigate && onNavigate('projects')}>
             GPU Acceleration
           </span>
-          <span className="hidden md:inline text-gray-700">•</span>
-          <span className="hover:text-white transition-colors duration-300">Cornell '26</span>
+          <span className="hidden sm:inline text-gray-700">•</span>
+          <span className="hover:text-white transition-colors duration-300">Cornell 2026</span>
         </div>
 
         {/* Quick Navigation Pills */}
-        <div className="flex flex-wrap gap-3 justify-center">
+        <div className="flex flex-wrap gap-2.5 sm:gap-3 justify-center px-2 max-w-md mx-auto">
           <button 
             onClick={() => onNavigate && onNavigate('experience')}
-            className="px-6 py-2.5 rounded-full border border-white/20 text-white/80 text-sm font-light tracking-wide
-                       hover:bg-white/10 hover:border-white/30 transition-all duration-300
-                       backdrop-blur-sm"
+            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-white/20 text-white/80 text-sm sm:text-base font-light tracking-wide
+                       hover:bg-white/10 hover:border-white/30 active:bg-white/15 transition-all duration-300
+                       backdrop-blur-sm touch-manipulation min-h-[44px] flex items-center justify-center"
           >
             Experience
           </button>
           <button 
             onClick={() => onNavigate && onNavigate('projects')}
-            className="px-6 py-2.5 rounded-full border border-white/20 text-white/80 text-sm font-light tracking-wide
-                       hover:bg-white/10 hover:border-white/30 transition-all duration-300
-                       backdrop-blur-sm"
+            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-white/20 text-white/80 text-sm sm:text-base font-light tracking-wide
+                       hover:bg-white/10 hover:border-white/30 active:bg-white/15 transition-all duration-300
+                       backdrop-blur-sm touch-manipulation min-h-[44px] flex items-center justify-center"
           >
             Projects
           </button>
           <button 
             onClick={() => onNavigate && onNavigate('writings')}
-            className="px-6 py-2.5 rounded-full border border-white/20 text-white/80 text-sm font-light tracking-wide
-                       hover:bg-white/10 hover:border-white/30 transition-all duration-300
-                       backdrop-blur-sm"
+            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-white/20 text-white/80 text-sm sm:text-base font-light tracking-wide
+                       hover:bg-white/10 hover:border-white/30 active:bg-white/15 transition-all duration-300
+                       backdrop-blur-sm touch-manipulation min-h-[44px] flex items-center justify-center"
           >
             Writings
           </button>

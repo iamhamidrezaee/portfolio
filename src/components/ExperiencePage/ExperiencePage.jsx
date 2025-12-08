@@ -115,7 +115,7 @@ const ExperiencePage = ({ onBack }) => {
           speed={0.5}
           direction="forward"
           scale={1.7}
-          opacity={0.1}
+          opacity={0.2}
           mouseInteractive={false}
           resolution={0.5}
         />
@@ -129,11 +129,13 @@ const ExperiencePage = ({ onBack }) => {
       </header>
       
       <div className="experience-timeline">
-        {experiences.map((exp, idx) => (
+        {experiences.map((exp, idx) => {
+          const isSpecial = exp.company === 'Dalus (YC W25)' || exp.company === 'e3 group';
+          return (
           <SpotlightCard
             key={idx}
-            className={`experience-card ${exp.type}`}
-            spotlightColor="rgba(163, 192, 240, 0.15)"
+            className={`experience-card ${exp.type} ${isSpecial ? 'special-experience' : ''}`}
+            spotlightColor={isSpecial ? "rgba(163, 192, 240, 0.4)" : "rgba(163, 192, 240, 0.15)"}
           >
             <div className="card-content">
               <div className="card-header">
@@ -153,7 +155,8 @@ const ExperiencePage = ({ onBack }) => {
               </ul>
             </div>
           </SpotlightCard>
-        ))}
+          );
+        })}
       </div>
       
       <div className="education-section">

@@ -13,7 +13,7 @@ import { HiDocumentText } from 'react-icons/hi';
 const NAV_ITEMS = [
   {
     label: 'About',
-    bgColor: 'rgba(13, 7, 22, 0.95)',
+    bgColor: 'rgba(0, 0, 0, 0.8)',
     textColor: '#fff',
     links: [
       { label: 'Experience', ariaLabel: 'View Experience', href: 'experience' },
@@ -22,7 +22,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'Work',
-    bgColor: 'rgba(23, 13, 39, 0.95)',
+    bgColor: 'rgba(0, 0, 0, 0.8)',
     textColor: '#fff',
     links: [
       { label: 'Projects', ariaLabel: 'View Projects', href: 'projects' },
@@ -31,7 +31,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'Writings',
-    bgColor: 'rgba(39, 30, 55, 0.95)',
+    bgColor: 'rgba(0, 0, 0, 0.8)',
     textColor: '#fff',
     links: [
       { label: 'Blog Posts', ariaLabel: 'Read Blog Posts', href: 'writings' },
@@ -40,7 +40,7 @@ const NAV_ITEMS = [
   },
   {
     label: 'Contact',
-    bgColor: 'rgba(30, 20, 45, 0.95)',
+    bgColor: 'rgba(0, 0, 0, 0.8)',
     textColor: '#fff',
     links: [
       { label: 'Email', ariaLabel: 'Send Email', isExternal: true, url: 'mailto:hr328@cornell.edu' },
@@ -103,7 +103,7 @@ function App() {
       <CardNav
         items={NAV_ITEMS}
         onNavigate={handleNavigate}
-        baseColor="rgba(10, 10, 10, 0.85)"
+        baseColor="rgba(10, 10, 10, 0.65)"
         menuColor="#fff"
         buttonBgColor="#fff"
         buttonTextColor="#000"

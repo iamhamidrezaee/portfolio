@@ -51,11 +51,14 @@ function DockLabel({ children, isHovered, className = '' }) {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: 1, y: -10 }}
-          exit={{ opacity: 0, y: 0 }}
+          initial={{ opacity: 0, y: 0, x: '-50%' }}
+          animate={{ opacity: 1, y: -10, x: '-50%' }}
+          exit={{ opacity: 0, y: 0, x: '-50%' }}
           transition={{ duration: 0.2 }}
           className={`dock-label ${className}`}
+          style={{ 
+            left: '50%'
+          }}
         >
           {children}
         </motion.div>
@@ -77,6 +80,8 @@ export default function Dock({
   panelHeight = 68,
   baseItemSize = 50,
 }) {
+  // Detect if on mobile to adjust magnification
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
   const mouseX = useMotionValue(Infinity);
   const isHovered = useMotionValue(0);
 
@@ -95,12 +100,16 @@ export default function Dock({
         className="dock-panel"
         style={{ height: panelHeight }}
         onMouseMove={(e) => {
-          mouseX.set(e.pageX);
-          isHovered.set(1);
+          if (!isMobile) {
+            mouseX.set(e.pageX);
+            isHovered.set(1);
+          }
         }}
         onMouseLeave={() => {
-          mouseX.set(Infinity);
-          isHovered.set(0);
+          if (!isMobile) {
+            mouseX.set(Infinity);
+            isHovered.set(0);
+          }
         }}
       >
         {items.map((item, index) => (
@@ -109,8 +118,8 @@ export default function Dock({
             onClick={item.onClick}
             mouseX={mouseX}
             spring={spring}
-            distance={distance}
-            magnification={magnification}
+            distance={isMobile ? 80 : distance}
+            magnification={isMobile ? baseItemSize : magnification}
             baseItemSize={baseItemSize}
           >
             <DockIcon label={item.label}>{item.icon}</DockIcon>

@@ -166,7 +166,7 @@ const CardNav = ({
             type="button"
             className="card-nav-cta-button"
             style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
-            onClick={() => onNavigate && onNavigate('/contact')}
+            onClick={() => window.location.href = 'mailto:hr328@cornell.edu'}
           >
             Let's Talk
           </button>
