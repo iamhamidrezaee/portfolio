@@ -91,6 +91,7 @@ export const Plasma = ({
 }) => {
   const containerRef = useRef(null);
   const mousePos = useRef({ x: 0, y: 0 });
+  const lastSize = useRef({ w: 0, h: 0 });
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -152,9 +153,22 @@ export const Plasma = ({
     }
 
     const setSize = () => {
+      if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const width = Math.max(1, Math.floor(rect.width));
       const height = Math.max(1, Math.floor(rect.height));
+
+      // MOBILE FIX: 
+      // On mobile, the address bar hiding/showing triggers a resize. 
+      // If width hasn't changed, and height change is small (<150px), it's likely the UI.
+      // We skip the resize to prevent the background from glitching/reloading.
+      const isMobile = window.innerWidth <= 768; 
+      if (isMobile && width === lastSize.current.w && Math.abs(height - lastSize.current.h) < 150) {
+        return;
+      }
+
+      lastSize.current = { w: width, h: height };
+
       renderer.setSize(width, height);
       const res = program.uniforms.iResolution.value;
       res[0] = gl.drawingBufferWidth;
@@ -163,6 +177,8 @@ export const Plasma = ({
 
     const ro = new ResizeObserver(setSize);
     ro.observe(containerEl);
+    
+    // Initial size set
     setSize();
 
     let raf = 0;
@@ -199,6 +215,9 @@ export const Plasma = ({
       } catch {
         console.warn('Canvas already removed from container');
       }
+      // Force lose context to prevent memory leaks
+      const extension = gl.getExtension('WEBGL_lose_context');
+      if (extension) extension.loseContext();
     };
   }, [color, speed, direction, scale, opacity, mouseInteractive, resolution]);
 
@@ -206,4 +225,3 @@ export const Plasma = ({
 };
 
 export default Plasma;
-
