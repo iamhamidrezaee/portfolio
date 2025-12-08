@@ -1,12 +1,11 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "framework": null,
-  "rewrites": [
-    {
-      "source": "/((?!.*\\.(pdf|png|jpg|jpeg|gif|svg|ico|css|js|woff|woff2|ttf|eot|json|xml|txt|webp|mp4|webm|ogg|mp3|wav|zip|tar|gz)$).*)",
-      "destination": "/index.html"
-    }
-  ]
-}
-
+    "buildCommand": "npm run build",
+    "outputDirectory": "dist",
+    "framework": null,
+    "rewrites": [
+      {
+        "source": "/((?!api/.*).*)",
+        "destination": "/index.html"
+      }
+    ]
+  }
