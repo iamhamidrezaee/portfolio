@@ -76,7 +76,7 @@ function App() {
     {
       icon: <HiDocumentText size={22} />,
       label: 'Resume',
-      onClick: () => window.open('/Profile.pdf', '_blank'),
+      onClick: () => window.open('/Hamid_Rezaee_Resume.pdf', '_blank'),
     },
   ];
 
