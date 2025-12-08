@@ -1,0 +1,110 @@
+.dock-outer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  margin: 0 0.5rem;
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  padding-bottom: 0.75rem;
+}
+
+.dock-panel {
+  display: flex;
+  align-items: flex-end;
+  width: fit-content;
+  gap: 0.75rem;
+  border-radius: 1.25rem;
+  background: rgba(6, 0, 16, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 0.75rem 0.6rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 -2px 8px rgba(41, 251, 255, 0.05) inset;
+}
+
+.dock-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(20, 10, 30, 0.9), rgba(10, 5, 15, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dock-item:hover {
+  border-color: rgba(41, 251, 255, 0.2);
+  box-shadow:
+    0 4px 16px rgba(41, 251, 255, 0.15),
+    0 0 0 1px rgba(41, 251, 255, 0.1) inset;
+}
+
+.dock-item:focus-visible {
+  border-color: rgba(41, 251, 255, 0.4);
+  box-shadow:
+    0 0 0 2px rgba(41, 251, 255, 0.2),
+    0 4px 16px rgba(41, 251, 255, 0.15);
+}
+
+.dock-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.dock-item:hover .dock-icon {
+  color: #29fbff;
+  transform: scale(1.05);
+}
+
+.dock-label {
+  position: absolute;
+  top: -2.25rem;
+  left: 50%;
+  width: max-content;
+  white-space: pre;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(6, 0, 16, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateX(-50%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 640px) {
+  .dock-panel {
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem 0.5rem;
+    border-radius: 1rem;
+  }
+  
+  .dock-item {
+    border-radius: 10px;
+  }
+  
+  .dock-label {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+}
+
