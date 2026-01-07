@@ -18,19 +18,6 @@ const experiences = [
     ],
   },
   {
-    company: 'e3 group',
-    role: 'Machine Learning Infrastructure Engineer',
-    period: 'September 2025 - November 2025',
-    location: 'Ithaca, NY',
-    type: 'work',
-    highlights: [
-      'Built voice agent architecture achieving sub-800ms end-to-end latency (STT + LLM + TTS)',
-      'Implemented GPU memory optimization: model preloading, wrapper elimination, direct tensor allocation',
-      'Engineered low-latency inference for 1B-4B parameter models with quality-speed tradeoffs',
-      'Researched adaptive pipeline orchestration targeting 10-20% latency increase vs naive 200-300%',
-    ],
-  },
-  {
     company: 'Pequity',
     role: 'Machine Learning Engineering Intern',
     period: 'September 2024 - October 2025',
@@ -130,7 +117,7 @@ const ExperiencePage = ({ onBack }) => {
       
       <div className="experience-timeline">
         {experiences.map((exp, idx) => {
-          const isSpecial = exp.company === 'Dalus (YC W25)' || exp.company === 'e3 group';
+          const isSpecial = exp.company === 'Dalus (YC W25)';
           return (
           <SpotlightCard
             key={idx}
