@@ -31,17 +31,45 @@ const experiences = [
     ],
   },
   {
-    company: 'Dalus (YC W25)',
+    company: 'Dalus, Inc. (YC W25)',
     role: 'Software Engineering Intern (AI/ML)',
     period: 'June 2025 - August 2025',
     location: 'San Francisco Bay Area',
     type: 'work',
     highlights: [
-      'Built custom LSA retrieval engine, saving $24k/year and reducing latency 10s → 50ms',
-      'Architected schema-agnostic JSON Patch system eliminating runtime errors in production',
-      'Deployed GPU document processing on NVIDIA T4, cutting latency 20s → 70ms, saving $9k/year',
-      'Engineered dynamic context management solving overflow issues in AI copilot',
     ],
+    contributions: [
+      {
+        capability: 'Retrieval engine for AI copilot',
+        before: 'Reliant on Gemini 2.5 Flash; ~10s response latency; recurring model cost',
+        after: 'Custom LSA retrieval engine purpose-built for Dalus',
+        impact: 'Cut latency 10s → 50ms; saved ~$24k/yr in model spend'
+      },
+      {
+        capability: 'Document processing pipeline',
+        before: 'CPU-bound processing; ~20s per doc; higher infra cost',
+        after: 'GPU-accelerated pipeline on NVIDIA T4',
+        impact: 'Cut latency 20s → 70ms; saved ~$9k/yr in infra'
+      },
+      {
+        capability: 'Safe agent modifications',
+        before: 'Ad-hoc, schema-tied patches that risked runtime errors',
+        after: 'Schema-agnostic JSON Patch system for agent updates',
+        impact: 'Eliminated runtime errors in production updates'
+      },
+      {
+        capability: 'Conversation memory / context',
+        before: 'Context overflow in longer sessions; brittle state handling',
+        after: 'Dynamic context management for stateful conversations',
+        impact: 'Resolved overflow; unlocked reliable long-horizon sessions'
+      },
+      {
+        capability: 'Web search for agentic workflows (new)',
+        before: 'Agent couldn\'t search the internet; limited to internal knowledge',
+        after: 'Integrated online search into the AI agent',
+        impact: 'Expanded answer coverage; reduced manual research loops'
+      }
+    ]
   },
   {
     company: 'Cornell University Sustainable Design',
@@ -117,12 +145,12 @@ const ExperiencePage = ({ onBack }) => {
       
       <div className="experience-timeline">
         {experiences.map((exp, idx) => {
-          const isSpecial = exp.company === 'Dalus (YC W25)';
+          const isSpecial = exp.company.includes('Dalus');
           return (
           <SpotlightCard
             key={idx}
             className={`experience-card ${exp.type} ${isSpecial ? 'special-experience' : ''}`}
-            spotlightColor={isSpecial ? "rgba(163, 192, 240, 0.4)" : "rgba(163, 192, 240, 0.15)"}
+            spotlightColor="rgba(163, 192, 240, 0.15)"
           >
             <div className="card-content">
               <div className="card-header">
@@ -140,6 +168,31 @@ const ExperiencePage = ({ onBack }) => {
                   <li key={i}>{highlight}</li>
                 ))}
               </ul>
+              {exp.contributions && (
+                <div className="contributions-container">
+                  <span className="section-label">Detailed Impact</span>
+                  <table className="contributions-table">
+                    <thead>
+                      <tr>
+                        <th>Capability</th>
+                        <th>Before I joined</th>
+                        <th>After I shipped</th>
+                        <th>Impact</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {exp.contributions.map((row, i) => (
+                        <tr key={i}>
+                          <td data-label="Capability">{row.capability}</td>
+                          <td data-label="Before I joined">{row.before}</td>
+                          <td data-label="After I shipped">{row.after}</td>
+                          <td data-label="Impact">{row.impact}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
           </SpotlightCard>
           );

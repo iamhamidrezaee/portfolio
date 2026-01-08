@@ -105,34 +105,6 @@
   position: relative;
 }
 
-.experience-card.special-experience::after {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 1rem;
-  background: linear-gradient(135deg, rgba(163, 192, 240, 0.2), rgba(163, 192, 240, 0.05));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.experience-card.special-experience:hover {
-  border-color: rgba(163, 192, 240, 0.5);
-  box-shadow: 
-    0 0 35px rgba(163, 192, 240, 0.25),
-    0 0 70px rgba(163, 192, 240, 0.15),
-    inset 0 0 30px rgba(163, 192, 240, 0.08);
-  background-color: rgba(163, 192, 240, 0.05);
-}
-
-.experience-card.special-experience:hover::after {
-  opacity: 1;
-}
-
 @keyframes fadeInUp {
   to {
     opacity: 1;
@@ -144,6 +116,127 @@
   padding: 1.5rem;
   position: relative;
   z-index: 1;
+}
+
+/* Contributions Table Styles - Blended with card */
+.contributions-container {
+  margin-top: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.contributions-container::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: rgba(163, 192, 240, 0.5);
+  margin-bottom: 1rem;
+}
+
+.contributions-container .section-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(163, 192, 240, 0.5);
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  padding-left: 0;
+}
+
+.contributions-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.contributions-table th {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.contributions-table td {
+  padding: 1.25rem 1rem;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  vertical-align: top;
+  transition: all 0.2s ease;
+}
+
+.contributions-table tr:last-child td {
+  border-bottom: none;
+}
+
+.contributions-table td[data-label="Capability"] {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  width: 22%;
+}
+
+.contributions-table td[data-label="Impact"] {
+  color: rgba(163, 192, 240, 0.85);
+  font-weight: 500;
+}
+
+.contributions-table tr:hover td {
+  background: rgba(163, 192, 240, 0.03);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 768px) {
+  .contributions-container {
+    margin-top: 2rem;
+  }
+
+  .contributions-table thead {
+    display: none;
+  }
+
+  .contributions-table tr {
+    display: block;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .contributions-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .contributions-table td {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem 0.25rem;
+    border: none;
+    text-align: left;
+  }
+
+  .contributions-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .contributions-table td[data-label="Capability"] {
+    width: 100%;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .card-header {
