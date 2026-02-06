@@ -66,7 +66,8 @@ body {
 /* Ensure pages don't get hidden by dock */
 .writings-page,
 .experience-page,
-.projects-page {
+.projects-page,
+.art-page {
   padding-bottom: 6rem;
 }
 
@@ -79,7 +80,8 @@ body {
   
   .writings-page,
   .experience-page,
-  .projects-page {
+  .projects-page,
+  .art-page {
     padding-bottom: calc(8rem + var(--sab, 0));
   }
 
@@ -92,7 +94,8 @@ body {
 @media (max-width: 480px) {
   .writings-page,
   .experience-page,
-  .projects-page {
+  .projects-page,
+  .art-page {
     padding-bottom: calc(9rem + var(--sab, 0));
   }
 }
@@ -101,7 +104,8 @@ body {
 @media (max-width: 896px) and (orientation: landscape) {
   .writings-page,
   .experience-page,
-  .projects-page {
+  .projects-page,
+  .art-page {
     padding-bottom: calc(7rem + var(--sab, 0));
   }
 }

@@ -1,0 +1,508 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400;500&display=swap');
+
+/* ───────────────────────────────────────
+   Art Page — Minimal White Aesthetic
+   ─────────────────────────────────────── */
+
+.art-page {
+  --art-black: #000;
+  --art-white: #fff;
+  --art-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --art-sans: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+
+  width: 100%;
+  min-height: 100vh;
+  background: var(--art-white);
+  color: var(--art-black);
+  font-family: var(--art-sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+.art-page ::selection {
+  background: var(--art-black);
+  color: var(--art-white);
+}
+
+.art-page a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* ─── Back Button ─── */
+
+.art-back-button {
+  position: fixed;
+  top: 1.75rem;
+  left: 2rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--art-black);
+  padding: 0.5rem 1.15rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-family: var(--art-sans);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  transition: all 0.3s ease;
+}
+
+.art-back-button:hover {
+  background: var(--art-black);
+  color: var(--art-white);
+  border-color: var(--art-black);
+}
+
+.art-back-button .back-arrow {
+  font-size: 0.9rem;
+  transition: transform 0.2s ease;
+}
+
+.art-back-button:hover .back-arrow {
+  transform: translateX(-3px);
+}
+
+
+/* ─── Hub ─── */
+
+.art-hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 6rem 2rem 4rem;
+}
+
+.art-hub-header {
+  text-align: right;
+  width: 100%;
+  padding-right: 10vw;
+  margin-bottom: 6vh;
+}
+
+.art-hub-title {
+  font-family: var(--art-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  opacity: 0.5;
+}
+
+.art-hub-rule {
+  border: none;
+  height: 0.5px;
+  background: var(--art-black);
+  margin: 0 5vw;
+  opacity: 0.15;
+  width: 90vw;
+}
+
+.art-hub-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 8vh 0;
+  width: 100%;
+}
+
+.art-hub-link {
+  display: block;
+  font-family: var(--art-serif);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: opacity 0.4s ease, letter-spacing 0.4s ease;
+  text-align: center;
+  padding: 0.5vh 2vw;
+  background: none;
+  border: none;
+  color: var(--art-black);
+  font-style: normal;
+  position: relative;
+}
+
+.art-hub-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0.2em;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 0.5px;
+  background: var(--art-black);
+  transition: transform 0.4s ease;
+  transform-origin: center;
+}
+
+.art-hub-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.art-hub-link:hover {
+  opacity: 0.6;
+  letter-spacing: 0.04em;
+}
+
+.art-hub-nav:has(.art-hub-link:hover) .art-hub-link:not(:hover) {
+  opacity: 0.25;
+}
+
+.art-hub-footer {
+  margin-top: auto;
+  padding-top: 4vh;
+  text-align: right;
+  width: 100%;
+  padding-right: 10vw;
+}
+
+.art-hub-colophon {
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  opacity: 0.3;
+  text-transform: lowercase;
+}
+
+
+/* ─── Section Common ─── */
+
+.art-section {
+  min-height: 100vh;
+  padding: 0 0 8vh;
+}
+
+.art-section-header {
+  padding: 12vh 0 4vh;
+  text-align: right;
+  padding-right: 10vw;
+}
+
+.art-section-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--art-sans);
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--art-black);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  margin-bottom: 3vh;
+}
+
+.art-section-back:hover {
+  opacity: 1;
+}
+
+.art-section-title {
+  font-family: var(--art-serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.art-section-rule {
+  border: none;
+  height: 0.5px;
+  background: var(--art-black);
+  margin: 0 5vw;
+  opacity: 0.15;
+}
+
+
+/* ─── Work Item ─── */
+
+.art-work {
+  padding: 8vh 0 7vh;
+}
+
+.art-work + .art-work {
+  border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+  margin: 0 5vw;
+  padding-top: 8vh;
+}
+
+.art-work-media {
+  margin: 0 auto;
+  width: 76vw;
+  max-width: 1200px;
+}
+
+.art-work-media img {
+  width: 100%;
+  display: block;
+}
+
+
+/* ─── Video Container ─── */
+
+.art-video-container {
+  position: relative;
+  cursor: pointer;
+  line-height: 0;
+  background: var(--art-black);
+}
+
+.art-video-container video {
+  width: 100%;
+  display: block;
+}
+
+.art-play-indicator {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.art-play-indicator span {
+  font-family: var(--art-sans);
+  font-weight: 200;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--art-white);
+  mix-blend-mode: difference;
+}
+
+.art-video-container[data-state="playing"] .art-play-indicator {
+  opacity: 0;
+}
+
+
+/* ─── Work Info ─── */
+
+.art-work-info {
+  padding-top: 5vh;
+}
+
+.art-work-title {
+  font-family: var(--art-serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.6vw, 2.6rem);
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+  padding-left: 12vw;
+}
+
+.art-work-meta {
+  padding-top: 1.8vh;
+  padding-right: 10vw;
+  text-align: right;
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  line-height: 2;
+  text-transform: lowercase;
+}
+
+
+/* ─── Poetry / Text ─── */
+
+.art-work-text {
+  font-family: var(--art-serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  font-weight: 400;
+  line-height: 2.2;
+  text-align: left;
+  padding: 0 12vw;
+}
+
+.art-work-text p + p {
+  margin-top: 0.2em;
+}
+
+.art-work-text .poem-stanza + .poem-stanza {
+  margin-top: 2em;
+}
+
+
+/* ─── Design / Photo Placeholder ─── */
+
+.art-placeholder-img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.art-placeholder-img span {
+  font-family: var(--art-sans);
+  font-weight: 200;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.3;
+}
+
+.art-photo-placeholder {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.art-photo-placeholder span {
+  font-family: var(--art-sans);
+  font-weight: 200;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.3;
+}
+
+
+/* ─── Photo Grid ─── */
+
+.art-photo-grid {
+  margin: 0 auto;
+  width: 76vw;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2vw;
+  padding: 8vh 0 4vh;
+}
+
+.art-photo-grid .art-work-media {
+  width: 100%;
+}
+
+
+/* ─── Section Footer ─── */
+
+.art-section-footer {
+  padding: 4rem 5vw 3.5rem;
+}
+
+.art-section-colophon {
+  display: block;
+  text-align: right;
+  padding-right: 5vw;
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  opacity: 0.25;
+}
+
+
+/* ─── Responsive ─── */
+
+@media (max-width: 768px) {
+
+  .art-back-button {
+    top: 1.25rem;
+    left: 1.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    min-height: 44px;
+  }
+
+  .art-hub {
+    padding: 5rem 1.5rem 3rem;
+  }
+
+  .art-hub-header {
+    padding-right: 7vw;
+    margin-bottom: 4vh;
+  }
+
+  .art-hub-link {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    padding: 0.8vh 2vw;
+  }
+
+  .art-hub-footer {
+    padding-right: 7vw;
+  }
+
+  .art-section-header {
+    padding: 8vh 0 3vh;
+    padding-right: 7vw;
+  }
+
+  .art-section-rule {
+    margin: 0 4vw;
+  }
+
+  .art-work {
+    padding: 6vh 0 5vh;
+  }
+
+  .art-work + .art-work {
+    margin: 0 4vw;
+  }
+
+  .art-work-media {
+    width: 88vw;
+  }
+
+  .art-work-title {
+    padding-left: 7vw;
+  }
+
+  .art-work-meta {
+    padding-right: 7vw;
+  }
+
+  .art-work-text {
+    padding: 0 7vw;
+  }
+
+  .art-photo-grid {
+    width: 88vw;
+    grid-template-columns: 1fr;
+    gap: 4vw;
+  }
+
+  .art-section-footer {
+    padding: 2rem 4vw 3rem;
+  }
+
+  .art-section-colophon {
+    padding-right: 3vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .art-hub-link {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+
+  .art-work-text {
+    padding: 0 5vw;
+    font-size: clamp(1rem, 3.5vw, 1.15rem);
+    line-height: 2;
+  }
+}

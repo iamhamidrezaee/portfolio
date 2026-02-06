@@ -3,6 +3,7 @@ import LandingPage from './components/LandingPage';
 import WritingsPage from './components/WritingsPage/WritingsPage';
 import ExperiencePage from './components/ExperiencePage/ExperiencePage';
 import ProjectsPage from './components/ProjectsPage/ProjectsPage';
+import ArtPage from './components/ArtPage/ArtPage';
 import CardNav from './components/CardNav/CardNav';
 import Dock from './components/Dock/Dock';
 import { VscHome, VscGithubInverted, VscMail } from 'react-icons/vsc';
@@ -39,12 +40,14 @@ const NAV_ITEMS = [
     ],
   },
   {
-    label: 'Contact',
+    label: 'Art',
     bgColor: 'rgba(0, 0, 0, 0.8)',
     textColor: '#fff',
     links: [
-      { label: 'Email', ariaLabel: 'Send Email', isExternal: true, url: 'mailto:hr328@cornell.edu' },
-      { label: 'LinkedIn', ariaLabel: 'LinkedIn Profile', isExternal: true, url: 'https://www.linkedin.com/in/iamhamidrezaee' },
+      { label: 'Poems', ariaLabel: 'View Poems', href: 'art' },
+      { label: 'Videos', ariaLabel: 'View Videos', href: 'art' },
+      { label: 'Designs', ariaLabel: 'View Designs', href: 'art' },
+      { label: 'Photography', ariaLabel: 'View Photography', href: 'art' },
     ],
   },
 ];
@@ -93,6 +96,8 @@ function App() {
         return <ExperiencePage onBack={() => setCurrentPage('home')} />;
       case 'projects':
         return <ProjectsPage onBack={() => setCurrentPage('home')} />;
+      case 'art':
+        return <ArtPage onBack={() => setCurrentPage('home')} />;
       default:
         return <LandingPage onNavigate={handleNavigate} />;
     }
