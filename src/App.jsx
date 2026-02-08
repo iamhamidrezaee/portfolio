@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import WritingsPage from './components/WritingsPage/WritingsPage';
 import ExperiencePage from './components/ExperiencePage/ExperiencePage';
@@ -17,8 +18,8 @@ const NAV_ITEMS = [
     bgColor: 'rgba(0, 0, 0, 0.8)',
     textColor: '#fff',
     links: [
-      { label: 'Experience', ariaLabel: 'View Experience', href: 'experience' },
-      { label: 'Education', ariaLabel: 'View Education', href: 'experience' },
+      { label: 'Experience', ariaLabel: 'View Experience', href: '/experience' },
+      { label: 'Education', ariaLabel: 'View Education', href: '/experience' },
     ],
   },
   {
@@ -26,7 +27,7 @@ const NAV_ITEMS = [
     bgColor: 'rgba(0, 0, 0, 0.8)',
     textColor: '#fff',
     links: [
-      { label: 'Projects', ariaLabel: 'View Projects', href: 'projects' },
+      { label: 'Projects', ariaLabel: 'View Projects', href: '/projects' },
       { label: 'GitHub', ariaLabel: 'GitHub Profile', isExternal: true, url: 'https://github.com/iamhamidrezaee' },
     ],
   },
@@ -35,8 +36,8 @@ const NAV_ITEMS = [
     bgColor: 'rgba(0, 0, 0, 0.8)',
     textColor: '#fff',
     links: [
-      { label: 'Blog Posts', ariaLabel: 'Read Blog Posts', href: 'writings' },
-      { label: 'ML Chronicles', ariaLabel: 'The Why Chronicles', href: 'writings' },
+      { label: 'Blog Posts', ariaLabel: 'Read Blog Posts', href: '/writings' },
+      { label: 'ML Chronicles', ariaLabel: 'The Why Chronicles', href: '/writings' },
     ],
   },
   {
@@ -44,22 +45,23 @@ const NAV_ITEMS = [
     bgColor: 'rgba(0, 0, 0, 0.8)',
     textColor: '#fff',
     links: [
-      { label: 'Poems', ariaLabel: 'View Poems', href: 'art' },
-      { label: 'Videos', ariaLabel: 'View Videos', href: 'art' },
-      { label: 'Designs', ariaLabel: 'View Designs', href: 'art' },
-      { label: 'Photography', ariaLabel: 'View Photography', href: 'art' },
+      { label: 'Poems', ariaLabel: 'View Poems', href: '/art/poems' },
+      { label: 'Videos', ariaLabel: 'View Videos', href: '/art/videos' },
+      { label: 'Designs', ariaLabel: 'View Designs', href: '/art/designs' },
+      { label: 'Photography', ariaLabel: 'View Photography', href: '/art/photography' },
     ],
   },
 ];
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const dockItems = [
     {
       icon: <VscHome size={22} />,
       label: 'Home',
-      onClick: () => setCurrentPage('home'),
+      onClick: () => navigate('/'),
     },
     {
       icon: <VscGithubInverted size={22} />,
@@ -84,43 +86,47 @@ function App() {
   ];
 
   const handleNavigate = (page) => {
-    setCurrentPage(page);
+    const path = page.startsWith('/') ? page : `/${page}`;
+    navigate(path);
     window.scrollTo(0, 0);
   };
 
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'writings':
-        return <WritingsPage onBack={() => setCurrentPage('home')} />;
-      case 'experience':
-        return <ExperiencePage onBack={() => setCurrentPage('home')} />;
-      case 'projects':
-        return <ProjectsPage onBack={() => setCurrentPage('home')} />;
-      case 'art':
-        return <ArtPage onBack={() => setCurrentPage('home')} />;
-      default:
-        return <LandingPage onNavigate={handleNavigate} />;
-    }
-  };
+  const isArtPage = location.pathname.startsWith('/art');
+
+  const artDockItems = [
+    {
+      icon: <VscHome size={22} />,
+      label: 'Home',
+      onClick: () => navigate('/'),
+    },
+  ];
 
   return (
     <div className="w-full min-h-screen bg-black text-white">
-      <CardNav
-        items={NAV_ITEMS}
-        onNavigate={handleNavigate}
-        baseColor="rgba(10, 10, 10, 0.65)"
-        menuColor="#fff"
-        buttonBgColor="#fff"
-        buttonTextColor="#000"
-      />
+      {!isArtPage && (
+        <CardNav
+          items={NAV_ITEMS}
+          onNavigate={handleNavigate}
+          baseColor="rgba(10, 10, 10, 0.65)"
+          menuColor="#fff"
+          buttonBgColor="#fff"
+          buttonTextColor="#000"
+        />
+      )}
       
-      {renderPage()}
+      <Routes>
+        <Route path="/" element={<LandingPage onNavigate={handleNavigate} />} />
+        <Route path="/experience" element={<ExperiencePage onBack={() => navigate('/')} />} />
+        <Route path="/projects" element={<ProjectsPage onBack={() => navigate('/')} />} />
+        <Route path="/writings" element={<WritingsPage onBack={() => navigate('/')} />} />
+        <Route path="/art/*" element={<ArtPage onBack={() => navigate('/')} />} />
+      </Routes>
       
       <Dock
-        items={dockItems}
+        items={isArtPage ? artDockItems : dockItems}
         panelHeight={64}
         baseItemSize={46}
-        magnification={65}
+        magnification={isArtPage ? 46 : 65}
       />
     </div>
   );

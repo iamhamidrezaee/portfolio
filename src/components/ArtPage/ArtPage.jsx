@@ -1,6 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { GoArrowLeft } from 'react-icons/go';
 import './ArtPage.css';
+
+// ───────────────────────────────────────
+// Utilities
+// ───────────────────────────────────────
+
+const slugify = (text) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 
 // ───────────────────────────────────────
 // Placeholder Data
@@ -8,26 +19,58 @@ import './ArtPage.css';
 
 const poems = [
   {
-    title: 'Untitled I',
-    meta: 'spring — 2024',
+    title: 'Our Garden Rose',
+    meta: 'spring — 2026',
     stanzas: [
-      'The light pressed thin against the wall,\na quiet hum of afternoon—\nI held a thought too long\nand watched it turn to stone.',
-      'There is a door I keep forgetting,\nnot locked, just heavy.\nSome days I stand before it\nwith nothing in my hands.',
+      'Among the rest of them, one\nstands out: the rose.\nOur garden, petite and delicate, now\nhas a rose, so red, so inviting, so fresh\nthat it bleeds fragrance, sheds\nliver-red petals, and is whispering,\n"come forth, and lick me into poetry."',
     ],
   },
   {
-    title: 'Untitled II',
-    meta: 'winter — 2023',
+    title: 'Yellow Soccer Ball',
+    meta: 'spring — 2026',
     stanzas: [
-      'I gave my name to the river\nand the river said nothing back.\nThat was the year I learned\nsilence is not empty.',
-      'The birds returned\nbut not the same ones.\nI counted them anyway,\nthe way you count the days\nafter someone leaves.',
+      'My yellow soccer ball\ndad brings it home, and\nI have not blinked once;\nA piece of the sun before me\nGlorious, tough, loyal, how much\nI adore it! So yellow, I want to eat it,\nbite into its flesh like a\nhungry fox.',
+      'A day passed, and my yellow soccer ball\ntore open, what\na short life it had, little did\nI know, the yellow was telling me goodbye from\nthe start.',
     ],
   },
   {
-    title: 'Untitled III',
-    meta: 'autumn — 2023',
+    title: 'Guilt, Betrayel / The Radioactive Glass',
+    meta: 'spring — 2026',
     stanzas: [
-      'Between the asking and the answer\nthere is a country\nwhere the rain falls upward\nand no one is surprised.',
+      'The delicate glass, shiny and\nso beautiful, while all I\nhad to do was to\nhold it near and dear to me\nIt fell, now shattered in\npieces, all broken, never\nrecoverable in its very\nfirst form. All I\nhad to do was\nto protect it. I failed,\nI did not fulfil; and now\nI am writing this poem\u2014\nlittle do I know that I...\nam uncapable of\u2026 even fini\u2014',
+    ],
+  },
+  {
+    title: 'A Smile Behind the Bars',
+    meta: 'spring — 2026',
+    stanzas: [
+      'You put me in this\ngolden cage, behind the\ngolden golden bars',
+      'And if I had the\nchoice of choosing',
+      'I will pick your\ngolden golden shackles a\nmillion times over',
+      'If only I was\ngiven the chance\nonce again, and\nbreak free of\nthis choking freedom\u2014\nIf only',
+    ],
+  },
+  {
+    title: 'A Long Lost Hope',
+    meta: 'spring — 2026',
+    stanzas: [
+      '\u201CIf I could\u2026\u201D, \u201CIf I could\u2026\u201D, \u201CIf I could\u2026\u201D\nis haunting me, and\nwill forever do\nBut hey! I am okay, and\nas it should.',
+    ],
+  },
+  {
+    title: 'O Distant Refuge',
+    meta: 'spring — 2026',
+    stanzas: [
+      'refuge, O source of my hope\nhow are you? \nO glow of moonlight, O feather\nof a heart\nhow are you?\nO so beautiful soul, O innocent\nhands, O owner of the pearls, O breeze\nof joy\nhow are you?\nO graceful, O pure, O glamorous',
+      '\nO beautiful blue eyes',
+      'How are you?',
+    ],
+  },
+  {
+    title: 'Fading, Memory by Memory',
+    meta: 'spring — 2026',
+    stanzas: [
+      'Walking next to you\nnot holding hands\nyou are disappointed at me\nThe sky is clear, with a soft breeze\ntaking over our shoulders\nWhy were you still there? \nThere, right then, right that second\nand you disappeared, nobody was next \nto me from the beginning of that night, or\nat least, not the same body, not the same person and now \nwho are you? who is this?\nI am afraid, full of fear\nAs if you are a memory\nfalling off a cliff\nand with my hand stretched\nI\u2019m holding on to you, while\nyou, with tears in your eyes\nand a soft crying voice, say\n\u201CDon\u2019t forget me.\u201D',
     ],
   },
 ];
@@ -78,51 +121,61 @@ const photos = [
 // Sub-sections
 // ───────────────────────────────────────
 
-const PoemsSection = ({ onBack }) => (
-  <div className="art-section">
-    <div className="art-section-header">
-      <button className="art-section-back" onClick={onBack}>
-        <GoArrowLeft /> back
-      </button>
-      <h1 className="art-section-title">Poems</h1>
-    </div>
-    <hr className="art-section-rule" />
+const PoemsSection = ({ slug }) => {
+  useEffect(() => {
+    if (slug) {
+      const timer = setTimeout(() => {
+        const el = document.getElementById(slug);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [slug]);
 
-    {poems.map((poem, i) => (
-      <div className="art-work" key={i}>
-        <div className="art-work-media">
-          <div className="art-work-text">
-            {poem.stanzas.map((stanza, j) => (
-              <p className={j > 0 ? 'poem-stanza' : ''} key={j}>
-                {stanza.split('\n').map((line, k) => (
-                  <React.Fragment key={k}>
-                    {line}
-                    {k < stanza.split('\n').length - 1 && <br />}
-                  </React.Fragment>
-                ))}
-              </p>
-            ))}
+  return (
+    <div className="art-section">
+      <div className="art-section-header">
+        <h1 className="art-section-title">Poems</h1>
+      </div>
+      <hr className="art-section-rule" />
+
+      {poems.map((poem, i) => (
+        <div className="art-work" key={i} id={slugify(poem.title)}>
+          <div className="art-work-media">
+            <div className="poem-header">
+              <h2 className="art-work-title">{poem.title}</h2>
+            </div>
+            <div className="art-work-text">
+              {poem.stanzas.map((stanza, j) => (
+                <p className={j > 0 ? 'poem-stanza' : ''} key={j}>
+                  {stanza.split('\n').map((line, k) => (
+                    <React.Fragment key={k}>
+                      {line}
+                      {k < stanza.split('\n').length - 1 && <br />}
+                    </React.Fragment>
+                  ))}
+                </p>
+              ))}
+            </div>
+            <div className="poem-footer-meta">
+              <p className="art-work-meta">{poem.meta}</p>
+            </div>
           </div>
         </div>
-        <div className="art-work-info">
-          <h2 className="art-work-title">{poem.title}</h2>
-          <p className="art-work-meta">{poem.meta}</p>
-        </div>
-      </div>
-    ))}
+      ))}
 
-    <footer className="art-section-footer">
-      <span className="art-section-colophon">poems — hamid rezaee</span>
-    </footer>
-  </div>
-);
+      <footer className="art-section-footer">
+        <span className="art-section-colophon">poems — hamid rezaee</span>
+      </footer>
+    </div>
+  );
+};
 
-const DesignsSection = ({ onBack }) => (
+const DesignsSection = () => (
   <div className="art-section">
     <div className="art-section-header">
-      <button className="art-section-back" onClick={onBack}>
-        <GoArrowLeft /> back
-      </button>
       <h1 className="art-section-title">Designs</h1>
     </div>
     <hr className="art-section-rule" />
@@ -147,7 +200,7 @@ const DesignsSection = ({ onBack }) => (
   </div>
 );
 
-const VideosSection = ({ onBack }) => {
+const VideosSection = () => {
   const videoRefs = useRef([]);
 
   const handleVideoClick = (index) => {
@@ -175,9 +228,6 @@ const VideosSection = ({ onBack }) => {
   return (
     <div className="art-section">
       <div className="art-section-header">
-        <button className="art-section-back" onClick={onBack}>
-          <GoArrowLeft /> back
-        </button>
         <h1 className="art-section-title">Videos</h1>
       </div>
       <hr className="art-section-rule" />
@@ -216,12 +266,9 @@ const VideosSection = ({ onBack }) => {
   );
 };
 
-const PhotographySection = ({ onBack }) => (
+const PhotographySection = () => (
   <div className="art-section">
     <div className="art-section-header">
-      <button className="art-section-back" onClick={onBack}>
-        <GoArrowLeft /> back
-      </button>
       <h1 className="art-section-title">Photography</h1>
     </div>
     <hr className="art-section-rule" />
@@ -251,34 +298,43 @@ const PhotographySection = ({ onBack }) => (
 // ───────────────────────────────────────
 
 const ArtPage = ({ onBack }) => {
-  const [activeSection, setActiveSection] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Parse URL: /art → hub, /art/poems → section, /art/poems/some-slug → section + item
+  const pathParts = location.pathname.replace(/^\/art\/?/, '').split('/').filter(Boolean);
+  const activeSection = pathParts[0] || null;
+  const slug = pathParts[1] || null;
 
   const openSection = (section) => {
-    setActiveSection(section);
+    navigate(`/art/${section}`);
     window.scrollTo(0, 0);
   };
 
   const backToHub = () => {
-    setActiveSection(null);
+    navigate('/art');
     window.scrollTo(0, 0);
   };
 
   const sections = {
-    poems: <PoemsSection onBack={backToHub} />,
-    designs: <DesignsSection onBack={backToHub} />,
-    videos: <VideosSection onBack={backToHub} />,
-    photography: <PhotographySection onBack={backToHub} />,
+    poems: <PoemsSection slug={slug} />,
+    designs: <DesignsSection />,
+    videos: <VideosSection />,
+    photography: <PhotographySection />,
   };
 
   return (
     <div className="art-page">
-      {/* Fixed back button to portfolio home */}
-      <button className="art-back-button" onClick={onBack}>
+      {/* Fixed back button — context-aware */}
+      <button
+        className="art-back-button"
+        onClick={activeSection ? backToHub : onBack}
+      >
         <GoArrowLeft className="back-arrow" />
-        <span>home</span>
+        <span>{activeSection ? 'back' : 'home'}</span>
       </button>
 
-      {activeSection ? (
+      {activeSection && sections[activeSection] ? (
         sections[activeSection]
       ) : (
         <div className="art-hub">

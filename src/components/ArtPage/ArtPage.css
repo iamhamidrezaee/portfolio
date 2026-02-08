@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400;500&display=swap');
 
 /* ───────────────────────────────────────
    Art Page — Minimal White Aesthetic
@@ -7,7 +7,7 @@
 .art-page {
   --art-black: #000;
   --art-white: #fff;
-  --art-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --art-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --art-sans: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
 
   width: 100%;
@@ -156,7 +156,7 @@
 }
 
 .art-hub-link:hover {
-  opacity: 0.6;
+  opacity: 1;
   letter-spacing: 0.04em;
 }
 
@@ -325,9 +325,27 @@
 
 /* ─── Poetry / Text ─── */
 
+.poem-header {
+  padding: 0 12vw;
+  margin-bottom: 3vh;
+}
+
+.poem-header .art-work-title {
+  padding-left: 0;
+}
+
+.poem-footer-meta {
+  padding: 0 12vw;
+}
+
+.poem-footer-meta .art-work-meta {
+  padding-right: 0;
+  text-align: right;
+}
+
 .art-work-text {
   font-family: var(--art-serif);
-  font-style: italic;
+  font-style: normal;
   font-size: clamp(1.05rem, 1.6vw, 1.35rem);
   font-weight: 400;
   line-height: 2.2;
@@ -480,6 +498,14 @@
     padding: 0 7vw;
   }
 
+  .poem-header {
+    padding: 0 7vw;
+  }
+
+  .poem-footer-meta {
+    padding: 0 7vw;
+  }
+
   .art-photo-grid {
     width: 88vw;
     grid-template-columns: 1fr;
@@ -504,5 +530,13 @@
     padding: 0 5vw;
     font-size: clamp(1rem, 3.5vw, 1.15rem);
     line-height: 2;
+  }
+
+  .poem-header {
+    padding: 0 5vw;
+  }
+
+  .poem-footer-meta {
+    padding: 0 5vw;
   }
 }
