@@ -71,7 +71,7 @@ const poems = [
     title: 'Fading, Memory by Memory',
     image: "/ballerina.png",
     stanzas: [
-      'Walking next to you\nnot holding hands\nyou are disappointed at me\nThe sky is clear, with a soft breeze\ntaking over our shoulders\nWhy were you still there? \nThere, right then, right that second\nand you disappeared, nobody was next \nto me from the beginning of that night, or \nat least, not the same body, not the same person and now \nwho are you? who is this?\nI am afraid, full of fear\nAs if you are a memory\nfalling off a cliff\nand with my hand stretched\nI\u2019m holding on to you, while\nyou, with tears in your eyes\nand a soft crying voice, say\n\u201CDon\u2019t forget me.\u201D',
+      'Walking next to you\nnot holding hands\nyou are disappointed at me\nThe sky is clear, with a soft breeze\ntaking over our shoulders\nWhy were you still there? \nThere, right then, right that second\nand you disappeared, nobody was next \nto me from the beginning of that night, or \nat least, not the same body, \nnot the same person and now \nwho are you? who is this?\nI am afraid, full of fear\nAs if you are a memory\nfalling off a cliff\nand with my hand stretched\nI\u2019m holding on to you, while\nyou, with tears in your eyes\nand a soft crying voice, say\n\u201CDon\u2019t forget me.\u201D',
     ],
   },
 ];
