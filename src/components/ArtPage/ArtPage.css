@@ -362,6 +362,33 @@
 }
 
 
+/* ─── Poem with Image ─── */
+
+.poem-with-image {
+  display: flex;
+  align-items: flex-start;
+  gap: 4vw;
+}
+
+.poem-with-image .poem-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.poem-image {
+  flex: 0 0 28%;
+  max-width: 320px;
+  align-self: center;
+}
+
+.poem-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+}
+
+
 /* ─── Design / Photo Placeholder ─── */
 
 .art-placeholder-img {
@@ -504,6 +531,16 @@
 
   .poem-footer-meta {
     padding: 0 7vw;
+  }
+
+  .poem-with-image {
+    flex-direction: column;
+  }
+
+  .poem-image {
+    flex: none;
+    max-width: 220px;
+    margin: 3vh auto 0;
   }
 
   .art-photo-grid {

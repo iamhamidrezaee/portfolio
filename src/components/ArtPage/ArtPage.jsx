@@ -21,6 +21,7 @@ const poems = [
   {
     title: 'Our Garden Rose',
     meta: 'spring — 2026',
+    image: '/rose.jpg',
     stanzas: [
       'Among the rest of them, one\nstands out: the rose.\nOur garden, petite and delicate, now\nhas a rose, so red, so inviting, so fresh\nthat it bleeds fragrance, sheds\nliver-red petals, and is whispering,\n"come forth, and lick me into poetry."',
     ],
@@ -95,6 +96,7 @@ const videos = [
     title: 'Get Outta Me Head',
     meta: 'short film · 2024',
     src: '/get-outta-me-head.mp4',
+    visible: false, // toggle to true when ready to show
   },
 ];
 
@@ -144,23 +146,32 @@ const PoemsSection = ({ slug }) => {
       {poems.map((poem, i) => (
         <div className="art-work" key={i} id={slugify(poem.title)}>
           <div className="art-work-media">
-            <div className="poem-header">
-              <h2 className="art-work-title">{poem.title}</h2>
-            </div>
-            <div className="art-work-text">
-              {poem.stanzas.map((stanza, j) => (
-                <p className={j > 0 ? 'poem-stanza' : ''} key={j}>
-                  {stanza.split('\n').map((line, k) => (
-                    <React.Fragment key={k}>
-                      {line}
-                      {k < stanza.split('\n').length - 1 && <br />}
-                    </React.Fragment>
+            <div className={poem.image ? 'poem-with-image' : undefined}>
+              <div className="poem-body">
+                <div className="poem-header">
+                  <h2 className="art-work-title">{poem.title}</h2>
+                </div>
+                <div className="art-work-text">
+                  {poem.stanzas.map((stanza, j) => (
+                    <p className={j > 0 ? 'poem-stanza' : ''} key={j}>
+                      {stanza.split('\n').map((line, k) => (
+                        <React.Fragment key={k}>
+                          {line}
+                          {k < stanza.split('\n').length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </p>
                   ))}
-                </p>
-              ))}
-            </div>
-            <div className="poem-footer-meta">
-              <p className="art-work-meta">{poem.meta}</p>
+                </div>
+                <div className="poem-footer-meta">
+                  <p className="art-work-meta">{poem.meta}</p>
+                </div>
+              </div>
+              {poem.image && (
+                <div className="poem-image">
+                  <img src={poem.image} alt={poem.title} />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -232,7 +243,16 @@ const VideosSection = () => {
       </div>
       <hr className="art-section-rule" />
 
-      {videos.map((vid, i) => (
+      {videos.filter((v) => v.visible).length === 0 && (
+        <div className="art-work">
+          <div className="art-work-media" style={{ textAlign: 'center', padding: '8vh 0' }}>
+            <span style={{ fontFamily: 'var(--art-sans)', fontSize: '0.75rem', fontWeight: 300, letterSpacing: '0.08em', opacity: 0.35 }}>
+              coming soon
+            </span>
+          </div>
+        </div>
+      )}
+      {videos.filter((v) => v.visible).map((vid, i) => (
         <div className="art-work" key={i}>
           <div className="art-work-media">
             <div
