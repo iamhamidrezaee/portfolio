@@ -351,6 +351,7 @@
   line-height: 2.2;
   text-align: left;
   padding: 0 12vw;
+  white-space: nowrap;
 }
 
 .art-work-text p + p {
@@ -368,16 +369,17 @@
   display: flex;
   align-items: flex-start;
   gap: 4vw;
+  flex-wrap: wrap;
 }
 
 .poem-with-image .poem-body {
   flex: 1;
-  min-width: 0;
+  min-width: 60%;
 }
 
 .poem-image {
-  flex: 0 0 28%;
-  max-width: 320px;
+  flex: 0 0 36%;
+  max-width: 370px;
   align-self: center;
 }
 

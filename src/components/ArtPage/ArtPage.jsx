@@ -20,7 +20,7 @@ const slugify = (text) =>
 const poems = [
   {
     title: 'Our Garden Rose',
-    meta: 'spring — 2026',
+    
     image: '/rose.jpg',
     stanzas: [
       'Among the rest of them, one\nstands out: the rose.\nOur garden, petite and delicate, now\nhas a rose, so red, so inviting, so fresh\nthat it bleeds fragrance, sheds\nliver-red petals, and is whispering,\n"come forth, and lick me into poetry."',
@@ -28,7 +28,7 @@ const poems = [
   },
   {
     title: 'Yellow Soccer Ball',
-    meta: 'spring — 2026',
+    
     stanzas: [
       'My yellow soccer ball\ndad brings it home, and\nI have not blinked once;\nA piece of the sun before me\nGlorious, tough, loyal, how much\nI adore it! So yellow, I want to eat it,\nbite into its flesh like a\nhungry fox.',
       'A day passed, and my yellow soccer ball\ntore open, what\na short life it had, little did\nI know, the yellow was telling me goodbye from\nthe start.',
@@ -36,14 +36,14 @@ const poems = [
   },
   {
     title: 'Guilt, Betrayel / The Radioactive Glass',
-    meta: 'spring — 2026',
+    
     stanzas: [
       'The delicate glass, shiny and\nso beautiful, while all I\nhad to do was to\nhold it near and dear to me\nIt fell, now shattered in\npieces, all broken, never\nrecoverable in its very\nfirst form. All I\nhad to do was\nto protect it. I failed,\nI did not fulfil; and now\nI am writing this poem\u2014\nlittle do I know that I...\nam uncapable of\u2026 even fini\u2014',
     ],
   },
   {
     title: 'A Smile Behind the Bars',
-    meta: 'spring — 2026',
+    image: '/shackles.png',
     stanzas: [
       'You put me in this\ngolden cage, behind the\ngolden golden bars',
       'And if I had the\nchoice of choosing',
@@ -53,14 +53,14 @@ const poems = [
   },
   {
     title: 'A Long Lost Hope',
-    meta: 'spring — 2026',
+    
     stanzas: [
       '\u201CIf I could\u2026\u201D, \u201CIf I could\u2026\u201D, \u201CIf I could\u2026\u201D\nis haunting me, and\nwill forever do\nBut hey! I am okay, and\nas it should.',
     ],
   },
   {
     title: 'O Distant Refuge',
-    meta: 'spring — 2026',
+    
     stanzas: [
       'refuge, O source of my hope\nhow are you? \nO glow of moonlight, O feather\nof a heart\nhow are you?\nO so beautiful soul, O innocent\nhands, O owner of the pearls, O breeze\nof joy\nhow are you?\nO graceful, O pure, O glamorous',
       '\nO beautiful blue eyes',
@@ -69,26 +69,18 @@ const poems = [
   },
   {
     title: 'Fading, Memory by Memory',
-    meta: 'spring — 2026',
+    image: "/ballerina.png",
     stanzas: [
-      'Walking next to you\nnot holding hands\nyou are disappointed at me\nThe sky is clear, with a soft breeze\ntaking over our shoulders\nWhy were you still there? \nThere, right then, right that second\nand you disappeared, nobody was next \nto me from the beginning of that night, or\nat least, not the same body, not the same person and now \nwho are you? who is this?\nI am afraid, full of fear\nAs if you are a memory\nfalling off a cliff\nand with my hand stretched\nI\u2019m holding on to you, while\nyou, with tears in your eyes\nand a soft crying voice, say\n\u201CDon\u2019t forget me.\u201D',
+      'Walking next to you\nnot holding hands\nyou are disappointed at me\nThe sky is clear, with a soft breeze\ntaking over our shoulders\nWhy were you still there? \nThere, right then, right that second\nand you disappeared, nobody was next \nto me from the beginning of that night, or \nat least, not the same body, not the same person and now \nwho are you? who is this?\nI am afraid, full of fear\nAs if you are a memory\nfalling off a cliff\nand with my hand stretched\nI\u2019m holding on to you, while\nyou, with tears in your eyes\nand a soft crying voice, say\n\u201CDon\u2019t forget me.\u201D',
     ],
   },
 ];
 
 const designs = [
   {
-    title: 'Visual System — Series A',
-    meta: 'identity · 2024',
-  },
-  {
-    title: 'Typographic Study',
-    meta: 'experimental · 2024',
-  },
-  {
-    title: 'Spatial Compositions',
-    meta: 'print · 2023',
-  },
+    title: 'To be added soon',
+    meta: '',
+  }
 ];
 
 const videos = [
@@ -102,21 +94,9 @@ const videos = [
 
 const photos = [
   {
-    title: 'Series I — Light Studies',
-    meta: '35mm · 2024',
-  },
-  {
-    title: 'Series II — Urban Fragments',
-    meta: 'digital · 2024',
-  },
-  {
-    title: 'Series III — Portraits',
-    meta: 'medium format · 2023',
-  },
-  {
-    title: 'Series IV — Still Life',
-    meta: 'digital · 2023',
-  },
+    title: 'To be added soon',
+    meta: '',
+  }
 ];
 
 // ───────────────────────────────────────
