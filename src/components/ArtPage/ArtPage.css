@@ -539,10 +539,16 @@
     flex-direction: column;
   }
 
-  .poem-image {
+  .poem-with-image .poem-body {
+    order: 1;
+  }
+
+  .poem-with-image .poem-image {
+    order: 2;
     flex: none;
     max-width: 220px;
     margin: 3vh auto 0;
+    transform: none; /* no up/down offset on small screens; image stays below poem */
   }
 
   .art-photo-grid {

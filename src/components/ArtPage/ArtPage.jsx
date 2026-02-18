@@ -13,6 +13,23 @@ const slugify = (text) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
 
+// Vertical offset for poem images: up/down with a number, clamped so the image stays in bounds (px).
+const IMAGE_OFFSET_MIN = -900;
+const IMAGE_OFFSET_MAX = 900;
+
+const getPoemImageOffsetStyle = (poem) => {
+  const clamp = (n) => Math.max(IMAGE_OFFSET_MIN, Math.min(IMAGE_OFFSET_MAX, n));
+  if (poem.up != null && poem.up !== '') {
+    const n = parseInt(poem.up, 10);
+    if (!Number.isNaN(n)) return { transform: `translateY(${clamp(-n)}px)` };
+  }
+  if (poem.down != null && poem.down !== '') {
+    const n = parseInt(poem.down, 10);
+    if (!Number.isNaN(n)) return { transform: `translateY(${clamp(n)}px)` };
+  }
+  return undefined;
+};
+
 // ───────────────────────────────────────
 // Placeholder Data
 // ───────────────────────────────────────
@@ -74,6 +91,52 @@ const poems = [
       'Walking next to you\nnot holding hands\nyou are disappointed at me\nThe sky is clear, with a soft breeze\ntaking over our shoulders\nWhy were you still there? \nThere, right then, right that second\nand you disappeared, nobody was next \nto me from the beginning of that night, or \nat least, not the same body, \nnot the same person and now \nwho are you? who is this?\nI am afraid, full of fear\nAs if you are a memory\nfalling off a cliff\nand with my hand stretched\nI\u2019m holding on to you, while\nyou, with tears in your eyes\nand a soft crying voice, say\n\u201CDon\u2019t forget me.\u201D',
     ],
   },
+  {
+    title: 'One Last Look',
+    stanzas: [
+      'at the lights of San Francisco\nfrom the plane window\nand a flash\nof all the moments\nwhere I thought life\ncannot get any happier\nthan this',
+      '',
+      'One last look and\nwe were now far\nfar away, the plane\nflying so aggressively, the\nwooshing sound, this damned\ndeafening sound',
+      'I am far, my ears\nlocked and nothing\nbut darkness visible for\nmiles',
+      'And now you\nare all of this city\neverywhere, at every two\nhands holding, at every\nkiss, at every heart, at\nevery work of art, at every\nlove, is all you and all\nof you',
+      'Then the landing, I jump\nout of my sleep, I sigh\nand prepare once\nagain to walk\nonto my journey that\nis all of this.'
+    ]
+  },
+  {
+    title: 'Year is Checkered',
+    image:"/hand.png",
+    down:"500",
+    stanzas: [
+      'When we were overwhelmed\nwith happiness, frolicing along\nthe Columbus street\nall I saw was light, even\nat the midnight when we\ncraved ice cream\nThe soft breeze of summer\nplaying with your skirt, and my\nhand locked with yours',
+      '',
+      'At that moment, all I could see\nwas light',
+      'But then, winter arrived, and\nmy hand now was piercing\nthrough your skin, a set\nof invisible claws that were\ndipped in the poison\nof betrayal\ngoing deeper and deeper into your essence of honesty and trust and love and care and loyalty\nbut my words, those cold, shiny, thin blades were why you never saw\nthe horns, the claws, the hell in my eyes.',
+      'A winter, gloomy\nand harsh, that is who\nI was to your delicate soul.',
+      'Your year got checkered,\nand I am sawing my horns,\ncutting my claws,\nwanting to\none day, kill this winter of a monster,\nand maybe, again, reach the light!'
+    ]
+  },
+  {
+    title: 'A Long Last Blue Poem',
+    image:"/blue_eyes_1.jpeg",
+    stanzas: [
+      'where each stanza talks\nof you, for you, and only you.\nHow are you?\nWhy are you\nhere, to read a long blue poem?\nwhy should you, even?',
+      '',
+      'How are your eyes, your face,\nyour hands, your legs, your heart?\nDo they feel craved-for, longed-for, yet?',
+      'How about your words, your love, your thoughts\ndo they?',
+      'When your ear-to-ear beam of joy\nwas such a bless to see, to\nyour scent not to wear off my sheets',
+      'and your feeble self that\nnever plotted nor schemed\nand you who named a hater "an asshole"',
+      'how funny of a language-\nwhere what comes after the alphabet\u2019s cursed letter "h" \nwould never be found\nalong a blue poem',
+      'Lana\u2019s vocals echo\nback from the corners of\na small room located east\nof Yerba Buena',
+      'Went back\nto your baby photo\nThe colorful ball before your foot\nyour hat so large, so gangster\nYour floral red dress that\nhas blue flowers too\nyou are that same creature\nbut now hurt, or not, for who\nhas that power over you\nYou hold the sheer power, so beyond thought, beyond\nhuman',
+      'You are caressed\nby the hands of Venus\nand made of dust\nfrom the gorgeous moon\u2014\nlook at you\nthe blue sky\u2019 glow\nreflects from your eyes\nthe glow on darkness\nmarked all over the art\non one glamorous canvas:\nyour body',
+      'You deserve a lord\nof Ephyra, but one eternally\nblessed to kneel\nbefore you and cry\nscream, bleed, and hug\nthe sweet shackles, only\ngrateful of your presence',
+      'Soon, you may see less\nof Stefan\nwho betrayed you\nHe shall be gone\nand for all that he has done for self,\nfor once, he may do one\nfor you:\nto be gone\nand never make\nyour eyes of much beauty\nsee such creature of no\nvalue, essence, nor soul',
+      'Those last words of yours\nare a lullaby and a wake up call.\nThoughts of you are hugs of\ncalm, the dark\nblue scarf\nwrapped around my neck\npresents me the joy to\nyearn, for such a thorn to be\ncursed to yearn and never can\nlove, or at least, so to be told',
+      'Remember:\nnot one Marlboro shall be\nheld by my hands\nunless\nyou are there,\nand not one love\nshall be felt that does not\ncarry your breeze\u2014\nyou see the moon, please\nwave and say hello\nback, for a hello was sent\nto you from far far away\nor why\nshould you, but hey,\nwho knows one who\nhas no hope.\nAt the absence of your words,\nthat hope, the only and last one, keeps me company',
+      'And here, at last',
+      'Peace, Love\nso long, blue eyes!'
+    ]
+  }
 ];
 
 const designs = [
@@ -103,7 +166,21 @@ const photos = [
 // Sub-sections
 // ───────────────────────────────────────
 
+const POEM_IMAGE_OFFSET_BREAKPOINT = 768; // match ArtPage.css poem-with-image column layout
+
 const PoemsSection = ({ slug }) => {
+  const [applyImageOffset, setApplyImageOffset] = React.useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth > POEM_IMAGE_OFFSET_BREAKPOINT : true
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(min-width: ${POEM_IMAGE_OFFSET_BREAKPOINT + 1}px)`);
+    const handler = () => setApplyImageOffset(mq.matches);
+    handler();
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
   useEffect(() => {
     if (slug) {
       const timer = setTimeout(() => {
@@ -148,7 +225,10 @@ const PoemsSection = ({ slug }) => {
                 </div>
               </div>
               {poem.image && (
-                <div className="poem-image">
+                <div
+                  className="poem-image"
+                  style={applyImageOffset ? getPoemImageOffsetStyle(poem) : undefined}
+                >
                   <img src={poem.image} alt={poem.title} />
                 </div>
               )}
