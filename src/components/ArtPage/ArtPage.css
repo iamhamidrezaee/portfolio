@@ -296,6 +296,77 @@
 }
 
 
+/* ─── Audio Container ─── */
+
+.art-audio-container {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 3rem 3.5rem;
+  border: 0.5px solid rgba(0, 0, 0, 0.12);
+}
+
+.art-audio-play-btn {
+  flex-shrink: 0;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  border: 0.5px solid rgba(0, 0, 0, 0.25);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.art-audio-play-btn span {
+  font-family: var(--art-sans);
+  font-weight: 200;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--art-black);
+}
+
+.art-audio-play-btn:hover {
+  background: var(--art-black);
+  border-color: var(--art-black);
+}
+
+.art-audio-play-btn:hover span {
+  color: var(--art-white);
+}
+
+.art-audio-track {
+  flex: 1;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  position: relative;
+}
+
+.art-audio-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--art-black);
+  transition: width 0.1s linear;
+}
+
+.art-audio-time {
+  flex-shrink: 0;
+  font-family: var(--art-sans);
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  opacity: 0.4;
+  min-width: 6rem;
+  text-align: right;
+}
+
+
 /* ─── Work Info ─── */
 
 .art-work-info {
@@ -549,6 +620,21 @@
     max-width: 220px;
     margin: 3vh auto 0;
     transform: none; /* no up/down offset on small screens; image stays below poem */
+  }
+
+  .art-audio-container {
+    padding: 2rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .art-audio-play-btn {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .art-audio-time {
+    min-width: auto;
+    font-size: 0.58rem;
   }
 
   .art-photo-grid {

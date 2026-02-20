@@ -155,6 +155,15 @@ const videos = [
   },
 ];
 
+const voices = [
+  {
+    title: 'Prohibited Cry',
+    meta: 'sound piece · february 2026',
+    src: '/assignment_sound_piece.mp3',
+    visible: true,
+  },
+];
+
 const photos = [
   {
     title: 'To be added soon',
@@ -346,6 +355,129 @@ const VideosSection = () => {
   );
 };
 
+const VoicesSection = () => {
+  const audioRefs = useRef([]);
+  const [playingIndex, setPlayingIndex] = React.useState(null);
+  const [progress, setProgress] = React.useState({});
+
+  const handleAudioClick = (index) => {
+    const audio = audioRefs.current[index];
+    if (!audio) return;
+
+    if (audio.paused) {
+      audioRefs.current.forEach((a, i) => {
+        if (a && i !== index) {
+          a.pause();
+        }
+      });
+      audio.play();
+      setPlayingIndex(index);
+    } else {
+      audio.pause();
+      setPlayingIndex(null);
+    }
+  };
+
+  const handleTimeUpdate = (index) => {
+    const audio = audioRefs.current[index];
+    if (!audio || !audio.duration) return;
+    setProgress((prev) => ({
+      ...prev,
+      [index]: (audio.currentTime / audio.duration) * 100,
+    }));
+  };
+
+  const handleSeek = (e, index) => {
+    const audio = audioRefs.current[index];
+    if (!audio || !audio.duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const ratio = Math.max(0, Math.min(1, x / rect.width));
+    audio.currentTime = ratio * audio.duration;
+  };
+
+  const handleAudioEnd = (index) => {
+    setPlayingIndex(null);
+    setProgress((prev) => ({ ...prev, [index]: 0 }));
+  };
+
+  const formatTime = (seconds) => {
+    if (!seconds || !isFinite(seconds)) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const [durations, setDurations] = React.useState({});
+
+  return (
+    <div className="art-section">
+      <div className="art-section-header">
+        <h1 className="art-section-title">Voices</h1>
+      </div>
+      <hr className="art-section-rule" />
+
+      {voices.filter((v) => v.visible).length === 0 && (
+        <div className="art-work">
+          <div className="art-work-media" style={{ textAlign: 'center', padding: '8vh 0' }}>
+            <span style={{ fontFamily: 'var(--art-sans)', fontSize: '0.75rem', fontWeight: 300, letterSpacing: '0.08em', opacity: 0.35 }}>
+              coming soon
+            </span>
+          </div>
+        </div>
+      )}
+      {voices.filter((v) => v.visible).map((voice, i) => (
+        <div className="art-work" key={i}>
+          <div className="art-work-media">
+            <div
+              className="art-audio-container"
+              data-state={playingIndex === i ? 'playing' : 'paused'}
+            >
+              <audio
+                ref={(el) => (audioRefs.current[i] = el)}
+                src={voice.src}
+                preload="metadata"
+                onTimeUpdate={() => handleTimeUpdate(i)}
+                onEnded={() => handleAudioEnd(i)}
+                onLoadedMetadata={() => {
+                  const audio = audioRefs.current[i];
+                  if (audio) setDurations((prev) => ({ ...prev, [i]: audio.duration }));
+                }}
+              />
+              <button
+                className="art-audio-play-btn"
+                onClick={() => handleAudioClick(i)}
+                aria-label={playingIndex === i ? 'Pause' : 'Play'}
+              >
+                <span>{playingIndex === i ? 'pause' : 'play'}</span>
+              </button>
+              <div className="art-audio-track" onClick={(e) => handleSeek(e, i)}>
+                <div
+                  className="art-audio-progress"
+                  style={{ width: `${progress[i] || 0}%` }}
+                />
+              </div>
+              <span className="art-audio-time">
+                {formatTime(
+                  audioRefs.current[i]?.currentTime
+                )} / {formatTime(durations[i])}
+              </span>
+            </div>
+          </div>
+          <div className="art-work-info">
+            <h2 className="art-work-title">{voice.title}</h2>
+            <p className="art-work-meta">{voice.meta}</p>
+          </div>
+        </div>
+      ))}
+
+      <footer className="art-section-footer">
+        <span className="art-section-colophon">voices — hamid rezaee</span>
+      </footer>
+    </div>
+  );
+};
+
 const PhotographySection = () => (
   <div className="art-section">
     <div className="art-section-header">
@@ -400,6 +532,7 @@ const ArtPage = ({ onBack }) => {
     poems: <PoemsSection slug={slug} />,
     designs: <DesignsSection />,
     videos: <VideosSection />,
+    voices: <VoicesSection />,
     photography: <PhotographySection />,
   };
 
@@ -433,6 +566,9 @@ const ArtPage = ({ onBack }) => {
             </button>
             <button className="art-hub-link" onClick={() => openSection('videos')}>
               Videos
+            </button>
+            <button className="art-hub-link" onClick={() => openSection('voices')}>
+              Voices
             </button>
             <button className="art-hub-link" onClick={() => openSection('photography')}>
               Photography
