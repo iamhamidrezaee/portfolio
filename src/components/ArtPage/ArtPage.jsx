@@ -151,7 +151,7 @@ const videos = [
     title: 'Get Outta Me Head',
     meta: 'short film · 2024',
     src: '/get-outta-me-head.mp4',
-    visible: true, // toggle to true when ready to show
+    visible: false, // toggle to true when ready to show
   },
 ];
 
