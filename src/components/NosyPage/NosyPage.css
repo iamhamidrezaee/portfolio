@@ -360,8 +360,8 @@
   white-space: nowrap;
 }
 
-.nosy-entry button,
-.nosy-controls button,
+.nosy-entry > button,
+.nosy-controls > button,
 .nosy-upload,
 .nosy-file-button,
 .nosy-reset {
@@ -381,16 +381,16 @@
   transition: background 160ms ease, color 160ms ease, opacity 160ms ease, transform 160ms ease;
 }
 
-.nosy-entry button:hover,
-.nosy-controls button:hover,
+.nosy-entry > button:hover,
+.nosy-controls > button:hover,
 .nosy-upload:hover,
 .nosy-file-button:hover,
 .nosy-reset:hover {
   transform: translateY(-1px);
 }
 
-.nosy-entry button:disabled,
-.nosy-controls button:disabled,
+.nosy-entry > button:disabled,
+.nosy-controls > button:disabled,
 .nosy-reset:disabled,
 .nosy-frame-choice:disabled {
   cursor: not-allowed;
