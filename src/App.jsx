@@ -1,133 +1,68 @@
-import React from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import React, { Suspense, lazy, useLayoutEffect } from 'react';
+import { Navigate, Routes, Route, useLocation } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import WritingsPage from './components/WritingsPage/WritingsPage';
 import ExperiencePage from './components/ExperiencePage/ExperiencePage';
 import ProjectsPage from './components/ProjectsPage/ProjectsPage';
 import ArtPage from './components/ArtPage/ArtPage';
-import CardNav from './components/CardNav/CardNav';
-import Dock from './components/Dock/Dock';
-import { VscHome, VscGithubInverted, VscMail } from 'react-icons/vsc';
-import { FaLinkedinIn } from 'react-icons/fa';
-import { HiDocumentText } from 'react-icons/hi';
+import WorkPage from './components/WorkPage/WorkPage';
+import NosyPage from './components/NosyPage/NosyPage';
 
-// Static nav items - defined outside component to prevent recreation
-const NAV_ITEMS = [
-  {
-    label: 'About',
-    bgColor: 'rgba(0, 0, 0, 0.8)',
-    textColor: '#fff',
-    links: [
-      { label: 'Experience', ariaLabel: 'View Experience', href: '/experience' },
-      { label: 'Education', ariaLabel: 'View Education', href: '/experience' },
-    ],
-  },
-  {
-    label: 'Work',
-    bgColor: 'rgba(0, 0, 0, 0.8)',
-    textColor: '#fff',
-    links: [
-      { label: 'Projects', ariaLabel: 'View Projects', href: '/projects' },
-      { label: 'GitHub', ariaLabel: 'GitHub Profile', isExternal: true, url: 'https://github.com/iamhamidrezaee' },
-    ],
-  },
-  {
-    label: 'Writings',
-    bgColor: 'rgba(0, 0, 0, 0.8)',
-    textColor: '#fff',
-    links: [
-      { label: 'Blog Posts', ariaLabel: 'Read Blog Posts', href: '/writings' },
-      { label: 'ML Chronicles', ariaLabel: 'The Why Chronicles', href: '/writings' },
-    ],
-  },
-  {
-    label: 'Art',
-    bgColor: 'rgba(0, 0, 0, 0.8)',
-    textColor: '#fff',
-    links: [
-      { label: 'Poems', ariaLabel: 'View Poems', href: '/art/poems' },
-      { label: 'Videos', ariaLabel: 'View Videos', href: '/art/videos' },
-      { label: 'Designs', ariaLabel: 'View Designs', href: '/art/designs' },
-      { label: 'Photography', ariaLabel: 'View Photography', href: '/art/photography' },
-    ],
-  },
-];
+const SoftWhisperPage = lazy(() => import('./components/SoftWhisperPage/SoftWhisperPage'));
 
 function App() {
-  const navigate = useNavigate();
   const location = useLocation();
 
-  const dockItems = [
-    {
-      icon: <VscHome size={22} />,
-      label: 'Home',
-      onClick: () => navigate('/'),
-    },
-    {
-      icon: <VscGithubInverted size={22} />,
-      label: 'GitHub',
-      onClick: () => window.open('https://github.com/iamhamidrezaee', '_blank'),
-    },
-    {
-      icon: <FaLinkedinIn size={20} />,
-      label: 'LinkedIn',
-      onClick: () => window.open('https://www.linkedin.com/in/iamhamidrezaee', '_blank'),
-    },
-    {
-      icon: <VscMail size={22} />,
-      label: 'Email',
-      onClick: () => window.location.href = 'mailto:hr328@cornell.edu',
-    },
-    {
-      icon: <HiDocumentText size={22} />,
-      label: 'Resume',
-      onClick: () => window.open('/Hamid_Rezaee_Resume.pdf', '_blank'),
-    },
-  ];
+  useLayoutEffect(() => {
+    if (!location.hash) {
+      const html = document.documentElement;
+      const previousScrollBehavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+      html.scrollTop = 0;
+      const frame = window.requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        html.scrollTop = 0;
+        html.style.scrollBehavior = previousScrollBehavior;
+      });
+      return () => {
+        window.cancelAnimationFrame(frame);
+        html.style.scrollBehavior = previousScrollBehavior;
+      };
+    }
 
-  const handleNavigate = (page) => {
-    const path = page.startsWith('/') ? page : `/${page}`;
-    navigate(path);
-    window.scrollTo(0, 0);
-  };
-
-  const isArtPage = location.pathname.startsWith('/art');
-
-  const artDockItems = [
-    {
-      icon: <VscHome size={22} />,
-      label: 'Home',
-      onClick: () => navigate('/'),
-    },
-  ];
+    const targetId = location.hash.slice(1);
+    const timer = window.setTimeout(() => {
+      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+    return () => window.clearTimeout(timer);
+  }, [location.hash, location.pathname]);
 
   return (
-    <div className="w-full min-h-screen bg-black text-white">
-      {!isArtPage && (
-        <CardNav
-          items={NAV_ITEMS}
-          onNavigate={handleNavigate}
-          baseColor="rgba(10, 10, 10, 0.65)"
-          menuColor="#fff"
-          buttonBgColor="#fff"
-          buttonTextColor="#000"
-        />
-      )}
-      
+    <div className="w-full min-h-screen bg-[#050505] text-white">
       <Routes>
-        <Route path="/" element={<LandingPage onNavigate={handleNavigate} />} />
-        <Route path="/experience" element={<ExperiencePage onBack={() => navigate('/')} />} />
-        <Route path="/projects" element={<ProjectsPage onBack={() => navigate('/')} />} />
-        <Route path="/writings" element={<WritingsPage onBack={() => navigate('/')} />} />
-        <Route path="/art/*" element={<ArtPage onBack={() => navigate('/')} />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/nosy" element={<NosyPage />} />
+        <Route
+          path="/soft-whisper"
+          element={(
+            <Suspense fallback={<div className="route-loading">Soft Whisper</div>}>
+              <SoftWhisperPage />
+            </Suspense>
+          )}
+        />
+        <Route path="/work" element={<Navigate to="/work/get-outta-me-head" replace />} />
+        <Route path="/work/fun-surv" element={<Navigate to="/work/nosy" replace />} />
+        <Route path="/work/:slug" element={<WorkPage />} />
+        <Route path="/experience" element={<ExperiencePage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/tech" element={<Navigate to="/projects" replace />} />
+        <Route path="/writings" element={<WritingsPage />} />
+        <Route path="/art/*" element={<ArtPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      
-      <Dock
-        items={isArtPage ? artDockItems : dockItems}
-        panelHeight={64}
-        baseItemSize={46}
-        magnification={isArtPage ? 46 : 65}
-      />
     </div>
   );
 }

@@ -1,0 +1,352 @@
+.soft-whisper-page {
+  color-scheme: dark;
+  --ink: #f4ede2;
+  --ink-dim: rgba(244, 237, 226, 0.72);
+  --ink-faint: rgba(244, 237, 226, 0.42);
+  --accent: #cfac6b;
+  --danger: #d8a5a5;
+  --panel: rgba(20, 12, 10, 0.44);
+  --panel-strong: rgba(18, 11, 9, 0.58);
+  --panel-edge: rgba(226, 196, 141, 0.18);
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  background: #080808;
+  color: var(--ink);
+  font-family: "Cormorant Garamond", "Georgia", serif;
+}
+
+.soft-whisper-page .soft-whisper-nav {
+  position: relative;
+  z-index: 20;
+  background: rgba(5, 5, 5, 0.82);
+}
+
+.soft-whisper-page .soft-whisper-experience-shell {
+  position: relative;
+  min-height: calc(100dvh - var(--topbar-height));
+}
+
+.soft-whisper-page * {
+  box-sizing: border-box;
+}
+
+.soft-whisper-page button,
+.soft-whisper-page input,
+.soft-whisper-page textarea,
+.soft-whisper-page select {
+  font: inherit;
+}
+
+.soft-whisper-page .app-shell {
+  position: relative;
+  width: 100%;
+  height: calc(100dvh - var(--topbar-height));
+  overflow: hidden;
+}
+
+.soft-whisper-page .canvas-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+/* --- Overlay --- */
+
+.soft-whisper-page .overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2rem 2rem 2.5rem;
+  pointer-events: none;
+}
+
+/* --- Prompt area --- */
+
+.soft-whisper-page .prompt-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  max-width: 44rem;
+  text-align: center;
+}
+
+.soft-whisper-page .prompt-card {
+  max-width: 42rem;
+  padding: 0.6rem 1rem 0.7rem;
+  border: none;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(4px);
+  box-shadow: none;
+  pointer-events: auto;
+}
+
+.soft-whisper-page .prompt-title {
+  margin: 0;
+  font-family: "Cormorant Garamond", "Georgia", serif;
+  font-weight: 600;
+  font-size: clamp(2.1rem, 4.6vw, 3.85rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  text-wrap: balance;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.soft-whisper-page .prompt-body {
+  margin: 0.75rem 0 0;
+  font-family: "Chivo", sans-serif;
+  font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--ink-dim);
+  text-wrap: balance;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9), 0 0 6px rgba(0, 0, 0, 0.7);
+}
+
+.soft-whisper-page .prompt-instruction {
+  margin-top: 0.8rem;
+  font-family: "Chivo", sans-serif;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  font-style: italic;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+}
+
+/* --- Buttons --- */
+
+.soft-whisper-page .option-row,
+.soft-whisper-page .control-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  pointer-events: auto;
+}
+
+.soft-whisper-page .option-button,
+.soft-whisper-page .handle-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.92rem 1.7rem;
+  border: 1px solid rgba(232, 224, 208, 0.45);
+  border-radius: 0;
+  background: rgba(14, 9, 7, 0.72);
+  backdrop-filter: blur(12px);
+  box-shadow: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    border-color 240ms ease,
+    color 240ms ease,
+    transform 240ms ease,
+    background-color 240ms ease;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: "Chivo", sans-serif;
+  font-size: 0.8rem;
+}
+
+.soft-whisper-page .option-button:hover,
+.soft-whisper-page .handle-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 244, 225, 0.1);
+}
+
+.soft-whisper-page .option-button:focus-visible,
+.soft-whisper-page .handle-button:focus-visible {
+  outline: 2px solid rgba(207, 172, 107, 0.7);
+  outline-offset: 3px;
+}
+
+.soft-whisper-page .option-button:disabled,
+.soft-whisper-page .handle-button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.soft-whisper-page .option-button strong,
+.soft-whisper-page .handle-button strong {
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.soft-whisper-page .option-button span,
+.soft-whisper-page .handle-button span {
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+}
+
+.soft-whisper-page .handle-button {
+  min-width: 8.2rem;
+  min-height: 4rem;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.soft-whisper-page .handle-symbol {
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+/* --- Meter --- */
+
+.soft-whisper-page .meter-panel {
+  width: min(16rem, 100%);
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(232, 224, 208, 0.12);
+  border-radius: 1rem;
+  background: var(--panel);
+  backdrop-filter: blur(14px);
+}
+
+.soft-whisper-page .meter-line {
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+}
+
+.soft-whisper-page .meter-fill,
+.soft-whisper-page .meter-threshold {
+  position: absolute;
+  inset: 0 auto 0 0;
+}
+
+.soft-whisper-page .meter-fill {
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+.soft-whisper-page .meter-threshold {
+  width: 1px;
+  background: var(--ink);
+  opacity: 0.5;
+}
+
+.soft-whisper-page .meter-copy {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: "Chivo", sans-serif;
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.05em;
+}
+
+/* --- Plaque (inside 3D box) --- */
+
+.soft-whisper-page .plaque-copy {
+  width: min(30rem, 82vw);
+  text-align: center;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(4px);
+  box-shadow: none;
+}
+
+.soft-whisper-page .plaque-main {
+  margin: 0 0 0.6rem;
+  font-family: "Cormorant Garamond", "Georgia", serif;
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ink);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.95), 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+.soft-whisper-page .plaque-sub {
+  margin: 0;
+  font-family: "Chivo", sans-serif;
+  font-size: clamp(0.94rem, 1.15vw, 1.02rem);
+  line-height: 1.75;
+  color: var(--ink-dim);
+  text-wrap: balance;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9), 0 0 6px rgba(0, 0, 0, 0.7);
+}
+
+/* --- Debug panel --- */
+
+.soft-whisper-page .hidden-debug {
+  pointer-events: auto;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  width: min(18rem, calc(100vw - 2rem));
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.85);
+  font-family: "Chivo", sans-serif;
+}
+
+.soft-whisper-page .hidden-debug h2 {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.soft-whisper-page .hidden-debug p {
+  margin: 0;
+  font-size: 0.68rem;
+  color: var(--ink-faint);
+}
+
+.soft-whisper-page .hidden-debug .debug-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.soft-whisper-page .debug-button {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink-dim);
+  font-family: "Chivo", sans-serif;
+  font-size: 0.68rem;
+  cursor: pointer;
+  transition: border-color 200ms;
+}
+
+.soft-whisper-page .debug-button:hover {
+  border-color: var(--accent);
+}
+
+.soft-whisper-page .debug-button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* --- Mobile --- */
+
+@media (max-width: 820px) {
+  .soft-whisper-page .overlay {
+    padding: 1rem 1rem 2rem;
+  }
+
+  .soft-whisper-page .prompt-title {
+    font-size: clamp(1.6rem, 10vw, 2.6rem);
+  }
+}

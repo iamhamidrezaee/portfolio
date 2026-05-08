@@ -1,4 +1,14 @@
 node_modules
+dist
+output
+.playwright-cli
+vite-*.log
 .next
 /.next
 .next/
+__pycache__/
+*.pyc
+
+.vercel
+test-results/
+vercel-dev.log

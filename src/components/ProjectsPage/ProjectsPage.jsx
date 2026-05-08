@@ -1,123 +1,72 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { GoArrowRight, GoArrowUpRight } from 'react-icons/go';
 import { projects } from '../../../data/projects.ts';
-import { GoArrowUpRight, GoArrowLeft } from 'react-icons/go';
-import LightRays from '../LightRays/LightRays';
+import PortfolioNav from '../PortfolioNav';
 import './ProjectsPage.css';
 
-const ProjectsPage = ({ onBack }) => {
+const projectLinks = (project) => {
+  const links = [...(project.links || [])];
+  if (project.github) links.push({ label: 'Repository', href: project.github });
+  if (project.demo) links.push({ label: 'Live', href: project.demo });
+  return links;
+};
+
+const ProjectsPage = () => {
   return (
-    <div className="projects-page">
-      <div className="projects-background">
-        <LightRays
-          raysOrigin="top-center"
-          raysColor="#ffffff"
-          raysSpeed={0.5}
-          lightSpread={0.5}
-          rayLength={3}
-          fadeDistance={1}
-          saturation={1}
-          mouseInfluence={0.1}
-          noiseAmount={0}
-          distortion={0}
-          pulsating={true}
-          followMouse={true}
-        />
-      </div>
-      <header className="projects-header">
-        <button className="back-button" onClick={onBack}>
-          <GoArrowLeft className="back-arrow" />
-          <span>Home</span>
-        </button>
-        <h1 className="projects-title">Projects</h1>
-        <p className="projects-subtitle">
-          Open-source tools and research projects in machine learning and information retrieval
+    <main className="archive-page">
+      <PortfolioNav />
+
+      <section className="archive-hero" aria-labelledby="projects-title">
+        <p className="archive-kicker">Technical archive</p>
+        <h1 id="projects-title">Technology</h1>
+        <p>
+          Research systems, retrieval tools, model work, and selected builds that can be shown
+          publicly without exposing private data.
         </p>
-      </header>
-      
-      <div className="projects-grid">
-        {projects.map((project, idx) => (
-          <article 
-            key={project.id} 
-            className="project-card"
-            style={{ 
-              animationDelay: `${idx * 0.1}s`,
-              '--accent-color': project.color 
-            }}
-          >
-            <div className="project-icon">
-              <ProjectIcon type={project.icon} color={project.color} />
-            </div>
-            <div className="project-content">
-              <h2 className="project-name">{project.title}</h2>
-              <p className="project-description">{project.description}</p>
-              <div className="project-tech">
-                {project.technologies.map((tech, i) => (
-                  <span key={i} className="tech-tag">{tech}</span>
+      </section>
+
+      <section className="project-archive-list" aria-label="Technical projects">
+        {projects.map((project, index) => (
+          <article className="project-archive-row" key={project.id}>
+            <span className="project-archive-index">{String(index + 1).padStart(2, '0')}</span>
+            <div className="project-archive-main">
+              <p className="archive-kicker">{project.context || project.technologies.slice(0, 2).join(' / ')}</p>
+              <h2>{project.title}</h2>
+              <p>{project.description}</p>
+              {project.status && <p className="project-status">{project.status}</p>}
+              <div className="project-tags">
+                {project.technologies.map((tech) => (
+                  <span key={tech}>{tech}</span>
                 ))}
               </div>
             </div>
-            <a 
-              href={project.github} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="project-link"
-              aria-label={`View ${project.title} on GitHub`}
-            >
-              <GoArrowUpRight />
-              <span>View Project</span>
-            </a>
+            <div className="project-link-list">
+              {projectLinks(project).map((link) => (
+                <a
+                  className="project-archive-link"
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  key={link.href}
+                >
+                  <span>{link.label}</span>
+                  <GoArrowUpRight aria-hidden="true" />
+                </a>
+              ))}
+            </div>
           </article>
         ))}
-      </div>
-    </div>
+      </section>
+
+      <footer className="archive-footer">
+        <Link to="/">
+          Index
+          <GoArrowRight aria-hidden="true" />
+        </Link>
+      </footer>
+    </main>
   );
 };
 
-const ProjectIcon = ({ type, color }) => {
-  const icons = {
-    clustering: (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="6" fill={color} opacity="0.8" />
-        <circle cx="36" cy="12" r="6" fill={color} opacity="0.6" />
-        <circle cx="12" cy="36" r="6" fill={color} opacity="0.6" />
-        <circle cx="36" cy="36" r="6" fill={color} opacity="0.8" />
-        <circle cx="24" cy="24" r="8" fill={color} />
-      </svg>
-    ),
-    transformer: (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="8" y="8" width="12" height="12" rx="2" fill={color} opacity="0.6" />
-        <rect x="28" y="8" width="12" height="12" rx="2" fill={color} opacity="0.8" />
-        <rect x="8" y="28" width="12" height="12" rx="2" fill={color} opacity="0.8" />
-        <rect x="28" y="28" width="12" height="12" rx="2" fill={color} opacity="0.6" />
-        <line x1="20" y1="14" x2="28" y2="14" stroke={color} strokeWidth="2" />
-        <line x1="20" y1="34" x2="28" y2="34" stroke={color} strokeWidth="2" />
-        <line x1="14" y1="20" x2="14" y2="28" stroke={color} strokeWidth="2" />
-        <line x1="34" y1="20" x2="34" y2="28" stroke={color} strokeWidth="2" />
-      </svg>
-    ),
-    'gradient-descent': (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 40 Q24 8 40 40" stroke={color} strokeWidth="3" fill="none" opacity="0.4" />
-        <circle cx="16" cy="28" r="4" fill={color} opacity="0.6" />
-        <circle cx="24" cy="16" r="4" fill={color} opacity="0.8" />
-        <circle cx="32" cy="24" r="4" fill={color} />
-        <path d="M16 28 L24 16 L32 24" stroke={color} strokeWidth="2" strokeDasharray="4 2" opacity="0.5" />
-      </svg>
-    ),
-    'medical-imaging': (
-      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="8" y="8" width="32" height="32" rx="4" stroke={color} strokeWidth="2" fill="none" opacity="0.4" />
-        <rect x="14" y="14" width="20" height="20" rx="2" fill={color} opacity="0.3" />
-        <ellipse cx="24" cy="24" rx="6" ry="8" fill={color} opacity="0.8" />
-        <line x1="24" y1="8" x2="24" y2="14" stroke={color} strokeWidth="2" />
-        <line x1="24" y1="34" x2="24" y2="40" stroke={color} strokeWidth="2" />
-      </svg>
-    ),
-  };
-  
-  return icons[type] || icons.clustering;
-};
-
 export default ProjectsPage;
-

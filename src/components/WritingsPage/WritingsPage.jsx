@@ -1,111 +1,187 @@
-import React, { useState } from 'react';
-import FlowingMenu from '../FlowingMenu/FlowingMenu';
-import Aurora from '../Aurora/Aurora';
+import React, { useMemo } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { GoArrowRight } from 'react-icons/go';
 import { writings } from '../../../data/writings.ts';
-import { GoArrowLeft } from 'react-icons/go';
+import PortfolioNav from '../PortfolioNav';
 import './WritingsPage.css';
 
-// Abstract gradient images for each writing category
-const categoryImages = {
-  'Machine Learning in Healthcare': 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&h=200&fit=crop&auto=format',
-  'Machine Learning in Practice': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=200&fit=crop&auto=format',
-  'Software Architecture': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop&auto=format',
-  'On-Device AI': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=200&fit=crop&auto=format',
-  'Voice AI & Optimization': 'https://images.unsplash.com/photo-1589254065878-42c9da997008?w=400&h=200&fit=crop&auto=format',
+const cleanText = (value = '') =>
+  value
+    .replaceAll('â€™', "'")
+    .replaceAll('â€˜', "'")
+    .replaceAll('â€œ', '"')
+    .replaceAll('â€', '"')
+    .replaceAll('â€¦', '...')
+    .replaceAll('â€”', '-')
+    .replaceAll('â€“', '-')
+    .replaceAll('Â·', '/')
+    .replaceAll('â†’', '->');
+
+const inlineParts = (line) => {
+  const parts = cleanText(line).split(/(\*\*.*?\*\*|`.*?`|\*.*?\*)/g).filter(Boolean);
+
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+
+    if (part.startsWith('`') && part.endsWith('`')) {
+      return <code key={index}>{part.slice(1, -1)}</code>;
+    }
+
+    if (part.startsWith('*') && part.endsWith('*')) {
+      return <em key={index}>{part.slice(1, -1)}</em>;
+    }
+
+    return <React.Fragment key={index}>{part}</React.Fragment>;
+  });
 };
 
-const WritingsPage = ({ onBack }) => {
-  const [selectedWriting, setSelectedWriting] = useState(null);
+const renderMarkdown = (content) => {
+  const lines = cleanText(content)
+    .replace(/^# .+\n+/, '')
+    .split('\n');
 
-  const menuItems = writings.map((writing) => ({
-    link: `#${writing.id}`,
-    text: writing.title,
-    subtitle: `${writing.date} · ${writing.readTime}`,
-    image: categoryImages[writing.category] || categoryImages['Machine Learning in Healthcare'],
-    writing: writing,
-  }));
+  const blocks = [];
+  let paragraph = [];
+  let list = [];
 
-  const handleItemClick = (item) => {
-    const writing = writings.find(w => w.title === item.text);
-    if (writing) {
-      setSelectedWriting(writing);
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    blocks.push({ type: 'p', lines: paragraph });
+    paragraph = [];
+  };
+
+  const flushList = () => {
+    if (!list.length) return;
+    blocks.push({ type: 'list', items: list });
+    list = [];
+  };
+
+  lines.forEach((rawLine) => {
+    const line = rawLine.trim();
+
+    if (!line) {
+      flushParagraph();
+      flushList();
+      return;
     }
-  };
 
-  const handleBackToList = () => {
-    setSelectedWriting(null);
-  };
+    if (line.startsWith('## ')) {
+      flushParagraph();
+      flushList();
+      blocks.push({ type: 'h2', text: line.slice(3) });
+      return;
+    }
 
-  if (selectedWriting) {
+    if (line.startsWith('### ')) {
+      flushParagraph();
+      flushList();
+      blocks.push({ type: 'h3', text: line.slice(4) });
+      return;
+    }
+
+    if (line.startsWith('> ')) {
+      flushParagraph();
+      flushList();
+      blocks.push({ type: 'quote', text: line.slice(2) });
+      return;
+    }
+
+    if (/^[-*]\s+/.test(line)) {
+      flushParagraph();
+      list.push(line.replace(/^[-*]\s+/, ''));
+      return;
+    }
+
+    paragraph.push(line);
+  });
+
+  flushParagraph();
+  flushList();
+
+  return blocks.map((block, index) => {
+    if (block.type === 'h2') return <h2 key={index}>{inlineParts(block.text)}</h2>;
+    if (block.type === 'h3') return <h3 key={index}>{inlineParts(block.text)}</h3>;
+    if (block.type === 'quote') return <blockquote key={index}>{inlineParts(block.text)}</blockquote>;
+    if (block.type === 'list') {
+      return (
+        <ul key={index}>
+          {block.items.map((item, itemIndex) => (
+            <li key={itemIndex}>{inlineParts(item)}</li>
+          ))}
+        </ul>
+      );
+    }
+
     return (
-      <div className="writing-detail">
-        <div className="aurora-background">
-          <Aurora
-            colorStops={["#5b728f", "#7f6490", "#895252"]}
-            blend={1}
-            amplitude={1.0}
-            speed={0.8}
-          />
-        </div>
-        <div className="writing-nav-container">
-          <button className="back-button" onClick={handleBackToList}>
-            <GoArrowLeft className="back-arrow" />
-            <span>Back to Writings</span>
-          </button>
-        </div>
-        <article className="writing-content">
-          <header className="writing-header">
-            <span className="writing-category">{selectedWriting.category}</span>
-            <h1>{selectedWriting.title}</h1>
-            <div className="writing-meta">
-              <span>{selectedWriting.date}</span>
-              <span className="meta-dot">·</span>
-              <span>{selectedWriting.readTime}</span>
-            </div>
-          </header>
-          <div 
-            className="writing-body"
-            dangerouslySetInnerHTML={{ 
-              __html: selectedWriting.content
-                .replace(/^# .+\n/m, '') // Remove first h1 since we show it in header
-                .replace(/## (.+)/g, '<h2>$1</h2>')
-                .replace(/### (.+)/g, '<h3>$1</h3>')
-                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.+?)\*/g, '<em>$1</em>')
-                .replace(/> (.+)/g, '<blockquote>$1</blockquote>')
-                .replace(/- (.+)/g, '<li>$1</li>')
-                .replace(/\n\n/g, '</p><p>')
-                .replace(/`(.+?)`/g, '<code>$1</code>')
-            }}
-          />
-        </article>
-      </div>
+      <p key={index}>
+        {block.lines.map((line, lineIndex) => (
+          <React.Fragment key={lineIndex}>
+            {inlineParts(line)}
+            {lineIndex < block.lines.length - 1 && <br />}
+          </React.Fragment>
+        ))}
+      </p>
     );
-  }
+  });
+};
+
+const WritingsPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const requestedId = searchParams.get('writing') || writings[0]?.id;
+  const selectedWriting = useMemo(
+    () => writings.find((writing) => writing.id === requestedId) || writings[0],
+    [requestedId],
+  );
+
+  const handleSelect = (id) => {
+    setSearchParams({ writing: id });
+  };
 
   return (
-    <div className="writings-page">
-      <div className="aurora-background">
-        <Aurora
-          colorStops={["#9ac3f9", "#deadff", "#fb9393"]}
-          blend={1}
-          amplitude={1.0}
-          speed={0.8}
-        />
-      </div>
-      <header className="writings-header">
-        <button className="back-button" onClick={onBack}>
-          <GoArrowLeft className="back-arrow" />
-          <span>Home</span>
-        </button>
-        <h1 className="writings-title">Writings</h1>
-      </header>
-      <div className="writings-menu-container">
-        <FlowingMenu items={menuItems} onItemClick={handleItemClick} />
-      </div>
-    </div>
+    <main className="writing-page">
+      <PortfolioNav />
+
+      <section className="writing-layout">
+        <aside className="writing-index" aria-label="Writing index">
+          <p className="writing-kicker">Writings</p>
+          <h1>Notes on systems</h1>
+          <div className="writing-list">
+            {writings.map((writing) => (
+              <button
+                className={writing.id === selectedWriting.id ? 'writing-list-item active' : 'writing-list-item'}
+                key={writing.id}
+                onClick={() => handleSelect(writing.id)}
+              >
+                <span>{cleanText(writing.category)}</span>
+                <strong>{cleanText(writing.title)}</strong>
+                <small>{cleanText(writing.date)} / {writing.readTime}</small>
+              </button>
+            ))}
+          </div>
+        </aside>
+
+        <article className="writing-article">
+          <header>
+            <p className="writing-kicker">{cleanText(selectedWriting.category)}</p>
+            <h2>{cleanText(selectedWriting.title)}</h2>
+            <p>{cleanText(selectedWriting.excerpt)}</p>
+          </header>
+          <div className="writing-body">
+            {renderMarkdown(selectedWriting.content)}
+          </div>
+        </article>
+      </section>
+
+      <footer className="writing-footer">
+        <Link to="/projects">
+          Technical archive
+          <GoArrowRight aria-hidden="true" />
+        </Link>
+      </footer>
+    </main>
   );
 };
 
 export default WritingsPage;
-
